@@ -1,6 +1,6 @@
 **Fully-featured ANTLR4 parser/lexer generation for Dart**
 
-#### DESCRIPTION
+#### Description
 
 ANTLR (ANother Tool for Language Recognition) is a tool that is used to generate
 code for performing a variety of language recognition tasks: lexing, parsing,
@@ -29,7 +29,7 @@ ANTLR provides for other language targets, such as Java and CSharp. It contains:
   construction and manipulation, tree structure recognition, and input translation.
 
 
-#### HOW TO BUILD
+#### How to build
 In order to use antlr4dart you have to create a custom antlr4 build. In contrast to
 other languages code generation for Dart isn't part of the standard antlr4 code
 repository yet.
@@ -76,7 +76,7 @@ $> ant
 This should create the file `dist/target/antlr-{version}-complete.jar` which includes support for
 Dart code generation.
 
-### TEST IT
+#### Testing
   * Create a trivial grammar in the file `trivial.g`
 
 	```antlr
@@ -96,7 +96,7 @@ $> java org.antlr.v4.Tool trivial.g
 ```
 This should create the files `trivial.dart` and `trivial.tokens`.
 
-#### USAGE
+#### Usage
 
 1. Write an ANTLR grammar specification for a language
 
@@ -199,7 +199,7 @@ This should create the files `trivial.dart` and `trivial.tokens`.
 	}
 	```
 
-#### RUNNING THE TESTS
+#### Running tests
 
 Make sure that the antlr jar you've built in the previous steps is on the classpath. If not, add it:
 ```bash 
