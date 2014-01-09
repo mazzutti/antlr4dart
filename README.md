@@ -58,25 +58,25 @@ repository yet.
 
 *Create symbolic links to the files supplied by antlr4dart*
 
-	```bash
-	$> cd antlr4
-	
-	# /path/to/antlr4dart is the full path to your local antlr4dart repository 
-	$> ln -s /path/to/antlr4dart/bin/Dart tool/resources/org/antlr/v4/tool/templates/codegen/Dart  
-	$> ln -s /path/to/antlr4dart/bin/DartTarget.java tool/src/org/antlr/v4/codegen/DartTarget.java
-	```
+```bash
+$> cd antlr4
+
+# /path/to/antlr4dart is the full path to your local antlr4dart repository 
+$> ln -s /path/to/antlr4dart/bin/Dart tool/resources/org/antlr/v4/tool/templates/codegen/Dart  
+$> ln -s /path/to/antlr4dart/bin/DartTarget.java tool/src/org/antlr/v4/codegen/DartTarget.java
+```
 
 *Build again*
 
-	```bash
-	$> cd antlr4 
-	$> ant
-	```    
+```bash
+$> cd antlr4 
+$> ant
+```    
 
 This should create the file `dist/target/antlr-{version}-complete.jar` which includes support for
 Dart code generation.
 
-### Test it
+### TEST IT
   * Create a trivial grammar in the file `trivial.g`
 
 	```antlr
@@ -91,9 +91,9 @@ Dart code generation.
 
 Make sure that the antlr jar you've built in the previous steps is on the classpath.
  
-	```bash
-	$> java org.antlr.v4.Tool trivial.g
-	```
+```bash
+$> java org.antlr.v4.Tool trivial.g
+```
 This should create the files `trivial.dart` and `trivial.tokens`.
 
 #### USAGE
@@ -201,25 +201,25 @@ This should create the files `trivial.dart` and `trivial.tokens`.
 
 #### RUNNING THE TESTS
 
-	Make sure that the antlr jar you've built in the previous steps is on the classpath. If not, add it:
-	```bash 
-	$> export CLASSPATH=path/to/antlr-{version}-complete.jar:$CLASSPATH
-	```
+Make sure that the antlr jar you've built in the previous steps is on the classpath. If not, add it:
+```bash 
+$> export CLASSPATH=path/to/antlr-{version}-complete.jar:$CLASSPATH
+```
 
-	Go to de `test/grammars` folders from terminal and process the grammars files `*.g` executing the
-	`process-grammars.sh` as folows:
+Go to de `test/grammars` folders from terminal and process the grammars files `*.g` executing the
+`process-grammars.sh` as folows:
 
-	```bash
-	$> cd antrl4dart/test/grammars
-	$> ./process-grammars.sh [file1.g file2.g ...]
-	```
-	If no file is passad, all grammar files will be processed.
-	
-	Run the all tests by executing: 
-	
-	```bash
-	$> cd antrl4dart/test/
-	$> dart run_tests.dart
-	```
+```bash
+$> cd antrl4dart/test/grammars
+$> ./process-grammars.sh [file1.g file2.g ...]
+```
+If no file is passed, all grammar files will be processed.
+
+Run the all tests by executing: 
+
+```bash
+$> cd antrl4dart/test/
+$> dart run_tests.dart
+```
 
 
