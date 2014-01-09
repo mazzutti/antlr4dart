@@ -1,0 +1,6 @@
+[submodule "lib"]
+	path = lib
+	url = https://github.com/tiagomazzutti/antlr4dart-runtime.git
+[submodule "antlr4dart-runtime"]
+	path = antlr4dart-runtime
+	url = https://github.com/tiagomazzutti/antlr4dart-runtime.git

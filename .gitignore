@@ -1,0 +1,8 @@
+test/grammars/*.tokens
+test/grammars/*.dart
+packages/
+test/*/packages
+bin/packages
+test/packages
+main.dart
+pubspec.lock

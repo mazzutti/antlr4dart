@@ -1,0 +1,51 @@
+library composite_tests;
+
+import 'delegator1_test.dart' as delegator1;
+import 'delegator2_test.dart' as delegator2;
+import 'delegator3_test.dart' as delegator3;
+import 'delegator4_test.dart' as delegator4;
+import 'delegator5_test.dart' as delegator5;
+import 'delegator6_test.dart' as delegator6;
+import 'delegator7_test.dart' as delegator7;
+import 'delegator8_test.dart' as delegator8;
+import 'delegator9_test.dart' as delegator9;
+import 'delegator10_test.dart' as delegator10;
+import 'delegator11_test.dart' as delegator11;
+import 'delegator11_test.dart' as delegator12;
+import 'bring_test.dart' as bring;
+import 'combined_test.dart' as combined;
+import 'keyword_test.dart' as keyword;
+import 'level_test.dart' as level;
+import 'big_tree_test.dart' as big_tree;
+import 'rules_visible_test.dart' as rules_visible;
+import 'nested_test.dart' as nested;
+import 'headers_test.dart' as headers;
+import 'imp_rule_test.dart' as imp_rule;
+import 'imp_test.dart' as imp;
+import 'imp_lexer_test.dart' as imp_lexer;
+
+main() {
+  delegator1.main();
+  delegator2.main();
+  delegator3.main();
+  delegator4.main();
+  delegator5.main();
+  delegator6.main();
+  delegator7.main();
+  delegator8.main();
+  delegator9.main();
+  delegator10.main();
+  delegator11.main();
+  delegator12.main();
+  bring.main();
+  combined.main();
+  keyword.main();
+  level.main();
+  big_tree.main();
+  rules_visible.main();
+  nested.main();
+  headers.main();
+  imp_rule.main();
+  imp.main();
+  imp_lexer.main();
+}
