@@ -168,7 +168,7 @@ class <file.grammarName>BaseVisitor\<T> extends AbstractParseTreeVisitor\<T> imp
  * The default implementation returns the result of calling
  * [visitChildren] on `ctx`.
  */
-public T visit<lname; format="cap">(<file.parserName>.<lname; format="cap">Context ctx) => visitChildren(ctx);}; separator="\n">
+T visit<lname; format="cap">(<file.parserName>.<lname; format="cap">Context ctx) => visitChildren(ctx);}; separator="\n">
 }
 >>
 
@@ -201,6 +201,8 @@ Parser_(parser, funcs, atn, sempredFuncs, ctor, superClass) ::= <<
   ];
   <namedActions.members>
   <parser:(ctor)()>
+  
+  String get serializedAtn => _serializedAtn;
   
   String get grammarFileName => "<parser.grammarFileName; format="dart-escape">";
   <funcs>
@@ -570,7 +572,8 @@ ArgAction(a, chunks) ::= "<chunks>"
 
 SemPred(p, chunks, failChunks) ::= <<
 state = <p.stateNumber>;
-if (!(<chunks>)) throw new FailedPredicateException(this, <p.predicate><if(failChunks)>, <failChunks><elseif(p.msg)>, <p.msg><endif>);
+if (!(<chunks>)) 
+  throw new FailedPredicateException(this, <p.predicate><if(failChunks)>, <failChunks><elseif(p.msg)>, <p.msg><endif>);
 >>
 
 ExceptionClause(e, catchArg, catchAction) ::= <<
@@ -674,32 +677,6 @@ ListLabelName(label)		  ::= "<label>"
 
 CaptureNextToken(d) ::= "<d.varName> = inputSource.lookToken(1);"
 CaptureNextTokenType(d) ::= "<d.varName> = inputSource.lookAhead(1);"
-
-//===================================================
-
-//StructDecl(struct,attrs,getters,dispatchMethods,interfaces,extensionMembers, superClass={ParserRuleContext}) ::= <<
-//public static class <struct.name> extends <superClass><if(interfaces)> implements <interfaces; separator=", "><endif> {
-//	<attrs:{a | <a>}; separator="\n">
-//	<getters:{g | <g>}; separator="\n">
-//	<if(struct.ctorAttrs)>public <struct.name>(ParserRuleContext parent, int invokingState) { super(parent, invokingState); }<endif>
-//	public <struct.name>(ParserRuleContext parent, int invokingState<struct.ctorAttrs:{a | , <a>}>) {
-//		super(parent, invokingState);
-//		<struct.ctorAttrs:{a | this.<a.name> = <a.name>;}; separator="\n">
-//	}
-//	@Override public int getRuleIndex() { return RULE_<struct.derivedFromName>; }
-//<if(struct.provideCopyFrom)> <! don't need copy unless we have subclasses !>
-//	public <struct.name>() { }
-//	public void copyFrom(<struct.name> ctx) {
-//		super.copyFrom(ctx);
-//		<struct.attrs:{a | this.<a.name> = ctx.<a.name>;}; separator="\n">
-//	}
-//<endif>
-//	<dispatchMethods; separator="\n">
-//	<extensionMembers; separator="\n">
-//}
-//>>
-
-// ===================================================================
 
 StructDecl(struct,attrs,getters,dispatchMethods,interfaces,extensionMembers, superClass={ParserRuleContext}) ::= <<
 class <parser.name><struct.name> extends <superClass><if(interfaces)> implements <interfaces; separator=", "><endif> {
@@ -816,7 +793,9 @@ class <lexer.name> extends <superClass> {
       _decisionToDfa[i] = new Dfa(atn.getDecisionState(i), i);
     }
     interpreter = new LexerAtnSimulator(atn, _decisionToDfa, sharedContextCache, this);
-  } 
+  }
+  
+  String get serializedAtn => _serializedAtn;
   
   String get grammarFileName => "<lexer.grammarFileName>";
   <dumpActions(lexer, "", actionFuncs, sempredFuncs)>
@@ -825,10 +804,14 @@ class <lexer.name> extends <superClass> {
 
 SerializedATN(model) ::= <<
 <if(rest(model.segments))>
-<\n>final Atn atn = AtnSimulator.deserialize(<model.segments:{segment| "<segment; wrap={"<\n><\t>"}>"}; separator="\n">);
+<\n>static const String _serializedAtn =  <model.segments:{segment| "<segment; wrap={"<\n><\t>"}>"}; separator="\n">;
+
+final Atn atn = AtnSimulator.deserialize(_serializedAtn);
 <else>
 <! only one segment, can be inlined !>
-<\n>final Atn atn = AtnSimulator.deserialize("<model.serialized; wrap={"<\n><\t>"}>");
+<\n>static const String _serializedAtn =  "<model.serialized; wrap={"<\n><\t>"}>";
+
+final Atn atn = AtnSimulator.deserialize(_serializedAtn);
 <endif>
 >>
 

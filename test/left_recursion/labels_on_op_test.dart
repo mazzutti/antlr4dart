@@ -28,12 +28,7 @@ main() {
     var errorListener = new TestErrorListener();
     parser.addErrorListener(errorListener);
     parser.s();
-    var expected = [
-      "reportAttemptingFullContext d=1 (e), input='*'",
-      "reportContextSensitivity d=1 (e), input='*2'",
-      "reportAttemptingFullContext d=1 (e), input='/'",
-      "reportContextSensitivity d=1 (e), input='/3'"];
-    expect(errorListener.errorMessages, equals(expected));
+    expect(errorListener.errorMessages.isEmpty, isTrue);
     expect(parser.log, equals(["(s (e (e (e 1) * (e 2)) / (e 3)))"]));
   });
 
@@ -45,12 +40,7 @@ main() {
     var errorListener = new TestErrorListener();
     parser.addErrorListener(errorListener);
     parser.s();
-    var expected = [
-      "reportAttemptingFullContext d=1 (e), input='/'",
-      "reportContextSensitivity d=1 (e), input='/'",
-      "reportAttemptingFullContext d=1 (e), input='*'",
-      "reportContextSensitivity d=1 (e), input='*3'"];
-    expect(errorListener.errorMessages, equals(expected));
+    expect(errorListener.errorMessages.isEmpty, isTrue);
     expect(parser.log, equals(["(s (e (e ( (e (e 1) / (e 2)) )) * (e 3)))"]));
   });
 }

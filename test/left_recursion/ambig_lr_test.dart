@@ -49,11 +49,7 @@ main() {
     var errorListener = new TestErrorListener();
     parser.addErrorListener(errorListener);
     parser.prog();
-    var expected = [
-      "reportAttemptingFullContext d=3 (expr), input='+'",
-      "reportContextSensitivity d=3 (expr), input='+'",
-      "reportAttemptingFullContext d=3 (expr), input='*'"];
-    expect(errorListener.errorMessages, equals(expected));
+    expect(errorListener.errorMessages.isEmpty, isTrue);
   });
 
   test("testAmbigLR5", () {
@@ -64,11 +60,6 @@ main() {
     var errorListener = new TestErrorListener();
     parser.addErrorListener(errorListener);
     parser.prog();
-    var expected = [
-      "reportAttemptingFullContext d=3 (expr), input='+'",
-      "reportContextSensitivity d=3 (expr), input='+'",
-      "reportAttemptingFullContext d=3 (expr), input='*'",
-      "reportContextSensitivity d=3 (expr), input='*'"];
-    expect(errorListener.errorMessages, equals(expected));
+    expect(errorListener.errorMessages.isEmpty, isTrue);
   });
 }

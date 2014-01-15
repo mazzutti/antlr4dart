@@ -21,11 +21,7 @@ main() {
     var expected = ["(e (e 1) + (e (e 2) * (e 3)))",
                     "1", "2", "3", "2 3 2", "1 2 1"];
     expect(parser.log, equals(expected));
-    var expected1 = [
-      "reportAttemptingFullContext d=1 (e), input='+'",
-      "reportContextSensitivity d=1 (e), input='+2'",
-      "reportAttemptingFullContext d=1 (e), input='*'",];
-    expect(errorListener.errorMessages, equals(expected1));
+    expect(errorListener.errorMessages.isEmpty, isTrue);
   });
 }
 

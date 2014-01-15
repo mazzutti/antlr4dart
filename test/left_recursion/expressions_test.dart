@@ -40,10 +40,7 @@ main() {
     var errorListener = new TestErrorListener();
     parser.addErrorListener(errorListener);
     parser.s();
-    var expected = [
-      "reportAttemptingFullContext d=2 (e), input='-'",
-      "reportContextSensitivity d=2 (e), input='-'"];
-    expect(errorListener.errorMessages, equals(expected));
+    expect(errorListener.errorMessages.isEmpty, isTrue);
     expect(parser.log, equals(["(s (e (e a) - (e 1)) <EOF>)"]));
   });
 
@@ -55,10 +52,7 @@ main() {
     var errorListener = new TestErrorListener();
     parser.addErrorListener(errorListener);
     parser.s();
-    var expected = [
-      "reportAttemptingFullContext d=2 (e), input='.'",
-      "reportContextSensitivity d=2 (e), input='.'"];
-    expect(errorListener.errorMessages, equals(expected));
+    expect(errorListener.errorMessages.isEmpty, isTrue);
     expect(parser.log, equals(["(s (e (e a) . b) <EOF>)"]));
   });
 
@@ -70,10 +64,7 @@ main() {
     var errorListener = new TestErrorListener();
     parser.addErrorListener(errorListener);
     parser.s();
-    var expected = [
-      "reportAttemptingFullContext d=2 (e), input='.'",
-      "reportContextSensitivity d=2 (e), input='.'"];
-    expect(errorListener.errorMessages, equals(expected));
+    expect(errorListener.errorMessages.isEmpty, isTrue);
     expect(parser.log, equals(["(s (e (e a) . this) <EOF>)"]));
   });
 
@@ -90,7 +81,6 @@ main() {
   });
 
   test("testExpressions7", () {
-    try {
     var csource = new StringSource("-a+b");
     var lexer = new ExpressionsLexer(csource);
     var tsource = new CommonTokenSource(lexer);
@@ -98,14 +88,7 @@ main() {
     var errorListener = new TestErrorListener();
     parser.addErrorListener(errorListener);
     parser.s();
-    var expected = [
-      "reportAttemptingFullContext d=2 (e), input='+'",
-      "reportContextSensitivity d=2 (e), input='+'"];
-    expect(errorListener.errorMessages, equals(expected));
+    expect(errorListener.errorMessages.isEmpty, isTrue);
     expect(parser.log, equals(["(s (e (e - (e a)) + (e b)) <EOF>)"]));
-    }catch(e, st) {
-      print(e);
-      print(st);
-    }
   });
 }

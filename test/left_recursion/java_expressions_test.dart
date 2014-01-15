@@ -16,11 +16,7 @@ main() {
     var errorListener = new TestErrorListener();
     parser.addErrorListener(errorListener);
     parser.s();
-    var expected = [
-      "reportAttemptingFullContext d=10 (e), input='|'",
-      "reportContextSensitivity d=10 (e), input='|'",
-      "reportAttemptingFullContext d=10 (e), input='&'"];
-    expect(errorListener.errorMessages, equals(expected));
+    expect(errorListener.errorMessages.isEmpty, isTrue);
     expect(parser.log, equals(["(s (e (e a) | (e (e b) & (e c))) <EOF>)"]));
   });
 
@@ -32,12 +28,7 @@ main() {
     var errorListener = new TestErrorListener();
     parser.addErrorListener(errorListener);
     parser.s();
-    var expected = [
-      "reportAttemptingFullContext d=10 (e), input='|'",
-      "reportContextSensitivity d=10 (e), input='|'",
-      "reportAttemptingFullContext d=10 (e), input='&'",
-      "reportContextSensitivity d=10 (e), input='&'"];
-    expect(errorListener.errorMessages, equals(expected));
+    expect(errorListener.errorMessages.isEmpty, isTrue);
     expect(parser.log, equals(["(s (e (e ( (e (e a) | (e b)) )) & (e c)) <EOF>)"]));
   });
 
@@ -49,10 +40,7 @@ main() {
     var errorListener = new TestErrorListener();
     parser.addErrorListener(errorListener);
     parser.s();
-    var expected = [
-      "reportAttemptingFullContext d=10 (e), input='>'",
-      "reportContextSensitivity d=10 (e), input='>'"];
-    expect(errorListener.errorMessages, equals(expected));
+    expect(errorListener.errorMessages.isEmpty, isTrue);
     expect(parser.log, equals(["(s (e (e a) > (e b)) <EOF>)"]));
   });
 
@@ -64,10 +52,7 @@ main() {
     var errorListener = new TestErrorListener();
     parser.addErrorListener(errorListener);
     parser.s();
-    var expected = [
-      "reportAttemptingFullContext d=10 (e), input='>>'",
-      "reportContextSensitivity d=10 (e), input='>>'"];
-    expect(errorListener.errorMessages, equals(expected));
+    expect(errorListener.errorMessages.isEmpty, isTrue);
     expect(parser.log, equals(["(s (e (e a) >> (e b)) <EOF>)"]));
   });
 
@@ -91,10 +76,7 @@ main() {
     var errorListener = new TestErrorListener();
     parser.addErrorListener(errorListener);
     parser.s();
-    var expected = [
-      "reportAttemptingFullContext d=10 (e), input='.'",
-      "reportContextSensitivity d=10 (e), input='.'"];
-    expect(errorListener.errorMessages, equals(expected));
+    expect(errorListener.errorMessages.isEmpty, isTrue);
     expect(parser.log, equals(["(s (e (e new (type A) ( )) . b) <EOF>)"]));
   });
 
@@ -106,11 +88,7 @@ main() {
     var errorListener = new TestErrorListener();
     parser.addErrorListener(errorListener);
     parser.s();
-    var expected = [
-      "reportAttemptingFullContext d=10 (e), input='.'",
-      "reportAttemptingFullContext d=10 (e), input='('",
-      "reportContextSensitivity d=10 (e), input='('"];
-    expect(errorListener.errorMessages, equals(expected));
+    expect(errorListener.errorMessages.isEmpty, isTrue);
     expect(parser.log, equals(["(s (e (e ( (type T) ) (e (e t) . f)) ( )) <EOF>)"]));
   });
 
@@ -122,15 +100,7 @@ main() {
     var errorListener = new TestErrorListener();
     parser.addErrorListener(errorListener);
     parser.s();
-    var expected = [
-      "reportAttemptingFullContext d=10 (e), input='.'",
-      "reportContextSensitivity d=10 (e), input='.'",
-      "reportAttemptingFullContext d=10 (e), input='('",
-      "reportContextSensitivity d=10 (e), input='('",
-      "reportAttemptingFullContext d=10 (e), input='=='",
-      "reportContextSensitivity d=10 (e), input='=='",
-      "reportAttemptingFullContext d=10 (e), input='.'"];
-    expect(errorListener.errorMessages, equals(expected));
+    expect(errorListener.errorMessages.isEmpty, isTrue);
     var expected1 = ["(s (e (e (e (e a) . f) ( "
                      "(expressionList (e x)) )) == (e (e T) . c)) <EOF>)"];
     expect(parser.log, equals(expected1));
@@ -144,16 +114,7 @@ main() {
     var errorListener = new TestErrorListener();
     parser.addErrorListener(errorListener);
     parser.s();
-    var expected = [
-      "reportAttemptingFullContext d=10 (e), input='.'",
-      "reportContextSensitivity d=10 (e), input='.'",
-      "reportAttemptingFullContext d=10 (e), input='('",
-      "reportContextSensitivity d=10 (e), input='('",
-      "reportAttemptingFullContext d=10 (e), input='.'",
-      "reportContextSensitivity d=10 (e), input='.'",
-      "reportAttemptingFullContext d=10 (e), input='('",
-      "reportContextSensitivity d=10 (e), input='('"];
-    expect(errorListener.errorMessages, equals(expected));
+    expect(errorListener.errorMessages.isEmpty, isTrue);
     var expected1 = ["(s (e (e (e (e (e a) . f) ( )) . g) "
                      "( (expressionList (e x) , (e 1)) )) <EOF>)"];
     expect(parser.log, equals(expected1));
@@ -168,13 +129,7 @@ main() {
     parser.addErrorListener(errorListener);
     parser.s();
     var expected = [
-      "reportAttemptingFullContext d=2 (e), input='[((n-1)*x)+1]'",
-      "reportAttemptingFullContext d=10 (e), input='-'",
-      "reportContextSensitivity d=10 (e), input='-'",
-      "reportAttemptingFullContext d=10 (e), input='*'",
-      "reportContextSensitivity d=10 (e), input='*'",
-      "reportAttemptingFullContext d=10 (e), input='+'",
-      "reportContextSensitivity d=10 (e), input='+'"];
+      "reportAttemptingFullContext d=2 (e), input='[((n-1)*x)+1]'"];
     expect(errorListener.errorMessages, equals(expected));
     var expected1 = ["(s (e new (type T) [ (e (e ( (e (e"
                      " ( (e (e n) - (e 1)) )) * (e x)) )) + (e 1)) ]) <EOF>)"];

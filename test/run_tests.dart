@@ -5,6 +5,7 @@ import 'lexer_exec/lexer_exec_test.dart' as lexer_exec;
 import 'parser_exec/parser_exec_test.dart' as parser_exec;
 import 'misc/atn_lexer_interpreter_test.dart' as atn_lexer_interpreter;
 import 'misc/atn_interpreter_test.dart' as atn_interpreter;
+import 'misc/parser_interpreter_test.dart' as parser_interpreter;
 import "misc/lexer01_test.dart" as lexer01;
 import 'misc/lexer02_test.dart' as lexer02;
 import 'misc/lexer03_test.dart' as lexer03;
@@ -55,6 +56,7 @@ class TestRunner {
     parser_exec.main();
     atn_lexer_interpreter.main();
     atn_interpreter.main();
+//    parser_interpreter.main();
     lexer01.main();
     lexer02.main();
     lexer03.main();
