@@ -137,13 +137,13 @@ part of <file.genPackage>;
  * operations with no return type.
  */
 abstract class <file.grammarName>Visitor\<T> extends ParseTreeVisitor\<T> {
-	<file.visitorNames:{lname |
-  /**
-   * Visit a parse tree produced by [<file.parserName>.<lname>].
-   * [ctx[ is the parse tree.
-   * Return the visitor result.
-   */
-  T visit<lname; format="cap">(<file.parserName><lname; format="cap">Context ctx);}; separator="\n">
+  <file.visitorNames:{lname |
+/**
+ * Visit a parse tree produced by [<file.parserName><lname>].
+ * [ctx[ is the parse tree.
+ * Return the visitor result.
+ */
+T visit<lname; format="cap">(<file.parserName><lname; format="cap">Context ctx);}; separator="\n\n">
 }
 >>
 
@@ -163,12 +163,12 @@ part of <file.genPackage>;
  * operations with no return type.
  */
 class <file.grammarName>BaseVisitor\<T> extends AbstractParseTreeVisitor\<T> implements <file.grammarName>Visitor\<T> {
-	<file.visitorNames:{lname |
+  <file.visitorNames:{lname |
 /**
  * The default implementation returns the result of calling
  * [visitChildren] on `ctx`.
  */
-T visit<lname; format="cap">(<file.parserName>.<lname; format="cap">Context ctx) => visitChildren(ctx);}; separator="\n">
+T visit<lname; format="cap">(<file.parserName><lname; format="cap">Context ctx) => visitChildren(ctx);}; separator="\n\n">
 }
 >>
 
