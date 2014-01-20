@@ -38,6 +38,7 @@ import 'char_set_with_quote1_test.dart' as char_set_with_quote1;
 import 'char_set_with_quote2_test.dart' as char_set_with_quote2;
 import 'position_adjusting_test.dart' as position_adjusting;
 import 'large_lexer_test.dart' as large_lexer;
+import 'action_placement_test.dart' as action_placement;
 
 main() {
   quote_translation.main();
@@ -78,4 +79,5 @@ main() {
   char_set_with_quote2.main();
   position_adjusting.main();
   large_lexer.main();
+  action_placement.main();
 }

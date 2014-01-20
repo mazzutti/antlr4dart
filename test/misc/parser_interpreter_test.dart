@@ -31,7 +31,7 @@ main() {
     LexerBuilder  lexerBuilder = (source) => new AOrBLexer1(source);
     ParserBuilder parserBuilder = (source) => new CallParser(source);
     String result = _execInterp(lexerBuilder,  parserBuilder, "s", "ac");
-    //expect(result, equals("(s (t a) c)"));
+    expect(result, equals("(s (t a) c)"));
 //    result = _execInterp(lexerBuilder,  parserBuilder, "s", "bc");
 //    expect(result, equals("(s (t b) c)"));
 //    } catch(e, st) {

@@ -56,7 +56,7 @@ class TestRunner {
     parser_exec.main();
     atn_lexer_interpreter.main();
     atn_interpreter.main();
-//    parser_interpreter.main();
+    parser_interpreter.main();
     lexer01.main();
     lexer02.main();
     lexer03.main();
