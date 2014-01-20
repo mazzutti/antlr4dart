@@ -62,7 +62,7 @@ abstract class <file.grammarName>Listener extends ParseTreeListener {
 <file.listenerNames:{lname |
 
   /**
-   * Enter a parse tree produced by [<file.parserName><lname>].
+   * Enter a parse tree produced by [<file.parserName>.<lname>].
    * [ctx] is the parse tree.
    */
    void enter<lname; format="cap">(<file.parserName><lname; format="cap">Context ctx);
@@ -139,8 +139,8 @@ part of <file.genPackage>;
 abstract class <file.grammarName>Visitor\<T> extends ParseTreeVisitor\<T> {
   <file.visitorNames:{lname |
 /**
- * Visit a parse tree produced by [<file.parserName><lname>].
- * [ctx[ is the parse tree.
+ * Visit a parse tree produced by [<file.parserName>.<lname>].
+ * [ctx] is the parse tree.
  * Return the visitor result.
  */
 T visit<lname; format="cap">(<file.parserName><lname; format="cap">Context ctx);}; separator="\n\n">
@@ -166,7 +166,7 @@ class <file.grammarName>BaseVisitor\<T> extends AbstractParseTreeVisitor\<T> imp
   <file.visitorNames:{lname |
 /**
  * The default implementation returns the result of calling
- * [visitChildren] on `ctx`.
+ * [visitChildren] on [ctx].
  */
 T visit<lname; format="cap">(<file.parserName><lname; format="cap">Context ctx) => visitChildren(ctx);}; separator="\n\n">
 }
