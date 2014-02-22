@@ -3,26 +3,27 @@ library atn_interpreter_test;
 import "package:unittest/unittest.dart";
 import "package:antlr4dart/antlr4dart.dart";
 
+import '../grammars/ambig_alt_choose1.dart' as ambig_alt_choose1;
+import '../grammars/ambig_alt_choose2.dart' as ambig_alt_choose2;
+import '../grammars/ambig_alt_choose3.dart' as ambig_alt_choose3;
+import '../grammars/ambig_alt_choose4.dart' as ambig_alt_choose4;
+import '../grammars/ambig_alt_choose5.dart' as ambig_alt_choose5;
+import '../grammars/arbitrary_left.dart' as arbitrary_left;
+import '../grammars/simple_loop.dart' as simple_loop;
+import '../grammars/common_left.dart' as common_left;
+import '../grammars/set_parser.dart' as set_parser;
+import '../grammars/recursive_left_parser.dart' as recursive_left_parser;
+import '../grammars/must_track_previous1.dart' as must_track_previous1;
+import '../grammars/must_track_previous2.dart' as must_track_previous2;
+import '../grammars/must_track_previous3.dart' as must_track_previous3;
+import '../grammars/must_track_previous4.dart' as must_track_previous4;
+import '../grammars/must_track_previous5.dart' as must_track_previous5;
+import '../grammars/peg_achilles_heel.dart' as peg_achilles_heel;
+
 part '../grammars/simple_no_block_lexer.dart';
 part '../grammars/simple_no_block_parser.dart';
-part '../grammars/set_parser.dart';
-part '../grammars/peg_achilles_heel.dart';
-part '../grammars/must_track_previous1.dart';
-part '../grammars/must_track_previous2.dart';
-part '../grammars/must_track_previous3.dart';
-part '../grammars/must_track_previous4.dart';
-part '../grammars/must_track_previous5.dart';
-part '../grammars/ambig_alt_choose1.dart';
-part '../grammars/ambig_alt_choose2.dart';
-part '../grammars/ambig_alt_choose3.dart';
-part '../grammars/ambig_alt_choose4.dart';
-part '../grammars/ambig_alt_choose5.dart';
 part '../grammars/must_track_previous_lexer.dart';
-part '../grammars/simple_loop.dart';
-part '../grammars/common_left.dart';
-part '../grammars/arbitrary_left.dart';
 part '../grammars/recursive_left_lexer.dart';
-part '../grammars/recursive_left_parser.dart';
 
 main() {
   test("testSimpleNoBlock", () {
@@ -33,13 +34,13 @@ main() {
 
   test("testSet", () {
     LexerBuilder lexerBuilder = (source) => new SimpleNoBlockLexer(source);
-    ParserBuilder parserBuilder = (tSource) => new SetParser(tSource);
+    ParserBuilder parserBuilder = (tSource) => new set_parser.SetParser(tSource);
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "b"), equals(1));
   });
 
   test("testPEGAchillesHeel", () {
     LexerBuilder lexerBuilder = (source) => new SimpleNoBlockLexer(source);
-    ParserBuilder parserBuilder = (tSource) => new PEGAchillesHeel(tSource);
+    ParserBuilder parserBuilder = (tSource) => new peg_achilles_heel.PEGAchillesHeel(tSource);
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "a"), equals(1));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "ab"), equals(2));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "abc"), equals(2));
@@ -47,7 +48,7 @@ main() {
 
   test("testMustTrackPreviousGoodAlt", () {
     LexerBuilder lexerBuilder = (source) => new SimpleNoBlockLexer(source);
-    ParserBuilder parserBuilder = (tSource) => new PEGAchillesHeel(tSource);
+    ParserBuilder parserBuilder = (tSource) => new peg_achilles_heel.PEGAchillesHeel(tSource);
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "a"), equals(1));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "ab"), equals(2));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "ac"), equals(1));
@@ -56,7 +57,7 @@ main() {
 
   test("testMustTrackPreviousGoodAltWithEOF", () {
     LexerBuilder lexerBuilder = (source) => new SimpleNoBlockLexer(source);
-    ParserBuilder parserBuilder = (tSource) => new MustTrackPrevious1(tSource);
+    ParserBuilder parserBuilder = (tSource) => new must_track_previous1.MustTrackPrevious1(tSource);
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "a"), equals(1));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "ab"), equals(2));
     try {
@@ -69,7 +70,7 @@ main() {
 
   test("testMustTrackPreviousGoodAlt2", () {
     LexerBuilder lexerBuilder = (source) => new MustTrackPreviousLexer(source);
-    ParserBuilder parserBuilder = (tSource) => new MustTrackPrevious2(tSource);
+    ParserBuilder parserBuilder = (tSource) => new must_track_previous2.MustTrackPrevious2(tSource);
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "a"), equals(1));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "ab"), equals(2));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "abc"), equals(3));
@@ -80,7 +81,7 @@ main() {
 
   test("testMustTrackPreviousGoodAlt2WithEOF", () {
     LexerBuilder lexerBuilder = (source) => new MustTrackPreviousLexer(source);
-    ParserBuilder parserBuilder = (tSource) => new MustTrackPrevious3(tSource);
+    ParserBuilder parserBuilder = (tSource) => new must_track_previous3.MustTrackPrevious3(tSource);
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "a"), equals(1));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "ab"), equals(2));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "abc"), equals(3));
@@ -94,7 +95,7 @@ main() {
 
   test("testMustTrackPreviousGoodAlt3", () {
     LexerBuilder lexerBuilder = (source) => new MustTrackPreviousLexer(source);
-    ParserBuilder parserBuilder = (tSource) => new MustTrackPrevious4(tSource);
+    ParserBuilder parserBuilder = (tSource) => new must_track_previous4.MustTrackPrevious4(tSource);
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "a"), equals(2));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "ab"), equals(1));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "abc"), equals(3));
@@ -105,7 +106,7 @@ main() {
 
   test("testMustTrackPreviousGoodAlt3WithEOF", () {
     LexerBuilder lexerBuilder = (source) => new MustTrackPreviousLexer(source);
-    ParserBuilder parserBuilder = (tSource) => new MustTrackPrevious5(tSource);
+    ParserBuilder parserBuilder = (tSource) => new must_track_previous5.MustTrackPrevious5(tSource);
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "a"), equals(2));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "ab"), equals(1));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "abc"), equals(3));
@@ -119,21 +120,21 @@ main() {
 
   test("testAmbigAltChooseFirst", () {
     LexerBuilder lexerBuilder = (source) => new MustTrackPreviousLexer(source);
-    ParserBuilder parserBuilder = (tSource) => new AmbigAltChoose1(tSource);
+    ParserBuilder parserBuilder = (tSource) => new ambig_alt_choose1.AmbigAltChoose1(tSource);
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "ab"), equals(1));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "abc"), equals(1));
   });
 
   test("testAmbigAltChooseFirstWithFollowingToken", () {
     LexerBuilder lexerBuilder = (source) => new MustTrackPreviousLexer(source);
-    ParserBuilder parserBuilder = (tSource) => new AmbigAltChoose2(tSource);
+    ParserBuilder parserBuilder = (tSource) => new ambig_alt_choose2.AmbigAltChoose2(tSource);
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "abc"), equals(1));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "abcd"), equals(1));
   });
 
   test("testAmbigAltChooseFirstWithFollowingToken2", () {
     LexerBuilder lexerBuilder = (source) => new MustTrackPreviousLexer(source);
-    ParserBuilder parserBuilder = (tSource) => new AmbigAltChoose3(tSource);
+    ParserBuilder parserBuilder = (tSource) => new ambig_alt_choose3.AmbigAltChoose3(tSource);
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "abd"), equals(1));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "abdc"), equals(1));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "cd"), equals(3));
@@ -141,7 +142,7 @@ main() {
 
   test("testAmbigAltChooseFirst2", () {
     LexerBuilder lexerBuilder = (source) => new MustTrackPreviousLexer(source);
-    ParserBuilder parserBuilder = (tSource) => new AmbigAltChoose4(tSource);
+    ParserBuilder parserBuilder = (tSource) => new ambig_alt_choose4.AmbigAltChoose4(tSource);
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "ab"), equals(1));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "abc"), equals(3));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "abd"), equals(1));
@@ -150,7 +151,7 @@ main() {
 
   test("testAmbigAltChooseFirst2WithEOF", () {
     LexerBuilder lexerBuilder = (source) => new MustTrackPreviousLexer(source);
-    ParserBuilder parserBuilder = (tSource) => new AmbigAltChoose5(tSource);
+    ParserBuilder parserBuilder = (tSource) => new ambig_alt_choose5.AmbigAltChoose5(tSource);
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "ab"), equals(1));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "abc"), equals(3));
     try {
@@ -163,7 +164,7 @@ main() {
 
   test("testSimpleLoop", () {
     LexerBuilder lexerBuilder = (source) => new MustTrackPreviousLexer(source);
-    ParserBuilder parserBuilder = (tSource) => new SimpleLoop(tSource);
+    ParserBuilder parserBuilder = (tSource) => new simple_loop.SimpleLoop(tSource);
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "ab"), equals(1));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "aab"), equals(1));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "aaaaaab"), equals(1));
@@ -172,20 +173,20 @@ main() {
 
   test("testCommonLeftPrefix", () {
     LexerBuilder lexerBuilder = (source) => new SimpleNoBlockLexer(source);
-    ParserBuilder parserBuilder = (tSource) => new CommonLeft(tSource);
+    ParserBuilder parserBuilder = (tSource) => new common_left.CommonLeft(tSource);
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "ab"), equals(1));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "ac"), equals(2));
   });
 
   test("testArbitraryLeftPrefix", () {
     LexerBuilder lexerBuilder = (source) => new SimpleNoBlockLexer(source);
-    ParserBuilder parserBuilder = (tSource) => new ArbitraryLeft(tSource);
+    ParserBuilder parserBuilder = (tSource) => new arbitrary_left.ArbitraryLeft(tSource);
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "aac"), equals(2));
   });
 
   test("testRecursiveLeftPrefix", () {
     LexerBuilder lexerBuilder = (source) => new RecursiveLeftLexer(source);
-    ParserBuilder parserBuilder = (tSource) => new RecursiveLeftParser(tSource);
+    ParserBuilder parserBuilder = (tSource) => new recursive_left_parser.RecursiveLeftParser(tSource);
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "34b"), equals(1));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "34c"), equals(2));
     expect(_getMatchedAlt(lexerBuilder, parserBuilder, "(34)b"), equals(1));

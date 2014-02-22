@@ -28,7 +28,7 @@ main() {
 class LeafListener extends LRBaseListener {
   List log;
   LeafListener(this.log);
-  void exitE(LRParserEContext ctx) {
+  void exitE(EContext ctx) {
     if (ctx.childCount == 3) {
       log.add("${ctx.getE(0).start.text} "
         "${ctx.getE(1).start.text} ${ctx.es[0].start.text}");

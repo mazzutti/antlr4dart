@@ -178,7 +178,6 @@ public class DartTarget extends Target {
 				// 5C is the hex code for the \ itself
 				return ((String)o).replace("\\u", "\\u005Cu");
 			}
-
 			return super.toString(o, formatString, locale);
 		}
 
@@ -189,7 +188,6 @@ public class DartTarget extends Target {
 						   ST outputFileST,
 						   String fileName) {
 		String recName = g.name + Grammar.getGrammarTypeToFileNameSuffix(g.getType());
-		SempredFuncsReWriter.apply(outputFileST, recName);
 		AttributeDeclReWriter.apply(outputFileST);
 		AltLabelCtxsReWriter.apply(outputFileST);
 		RuleFunctionReWriter.apply(outputFileST);
@@ -259,8 +257,8 @@ public class DartTarget extends Target {
 				((Parser) st.getAttribute("parser")).tokenNames;
 			for(int i = 0; i < tokenNames.length; i++) {
 				if (tokenNames[i] != null) {
-					if (tokenNames[i].equals("\"'$'\"")) {
-						tokenNames[i] = "r\"'$'\"";
+					if (tokenNames[i].contains("$")) {
+						tokenNames[i] = "r\"" + tokenNames[i].substring(1, tokenNames[i].length() - 1) + "\"";
 					}
 				}
 			}
@@ -318,39 +316,6 @@ public class DartTarget extends Target {
 				}
 			}
 			
-		}
-	}
-	
-	/**
-	  * Rewrites the attribute 'sempredFuncs' for the /Parser ST. This
-	  * rewriter prepends the recognizer to the context type name.
-	  */
-	private static class SempredFuncsReWriter implements STVisitor {
-		static void apply(ST outputFileST, String recName) {
-			SempredFuncsReWriter rewriter = new SempredFuncsReWriter(recName);
-			STWalker walker = new STWalker(rewriter);
-			walker.walk(outputFileST);
-		}
-
-		private String recognizerName;
-    
-		private SempredFuncsReWriter(String recognizerName) {
-            this.recognizerName = recognizerName;
-		}
-
-		@Override
-		public void visit(ST st) {
-			if (st == null) return;
-			if ("/Parser".equals(st.getName())) {
-				@SuppressWarnings("unchecked")
-				HashMap<Rule, ST> rules = (HashMap<Rule, ST>) st.getAttribute("sempredFuncs");
-				if (rules != null) {
-					for (ST sempred: rules.values()) {
-						RuleSempredFunction r = (RuleSempredFunction) sempred.getAttribute("r");
-						r.ctxType = recognizerName + r.ctxType;
-					}
-				}
-			}
 		}
 	}
 	

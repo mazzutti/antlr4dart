@@ -42,7 +42,7 @@ main() {
 class LeafListener extends TokenGettersBaseListener {
   List log;
   LeafListener(this.log);
-  void exitA(TokenGettersParserAContext ctx) {
+  void exitA(AContext ctx) {
     if (ctx.childCount == 2)
       log.add("${ctx.getINT(0).symbol.text} ${ctx.getINT(1).symbol.text} ${ctx.INTs()}");
     else log.add(ctx.getID().symbol.toString());

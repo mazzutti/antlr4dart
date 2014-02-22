@@ -40,7 +40,7 @@ main() {
 class LeafListener extends RuleGettersBaseListener {
   List log;
   LeafListener(this.log);
-  void exitA(RuleGettersParserAContext ctx) {
+  void exitA(AContext ctx) {
     if (ctx.childCount == 2) {
       log.add("${ctx.getB(0).start.text} "
         "${ctx.getB(1).start.text} ${ctx.bs[0].start.text}");

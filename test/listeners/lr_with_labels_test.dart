@@ -28,10 +28,10 @@ main() {
 class LeafListener extends LRWithLabelsBaseListener {
   List log;
   LeafListener(this.log);
-  void exitCall(LRWithLabelsParserCallContext ctx) {
+  void exitCall(CallContext ctx) {
     log.add("${ctx.getE().start.text} ${ctx.getEList()}");
   }
-  void exitInt(LRWithLabelsParserIntContext ctx) {
+  void exitInt(IntContext ctx) {
     log.add(ctx.getINT().symbol.text);
   }
 }

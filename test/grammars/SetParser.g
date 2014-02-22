@@ -4,7 +4,9 @@ options {
 language = Dart;
 }
 
-@header{part of atn_interpreter_test;}
+@header{library atn_interpreter_test.set_parser;
+
+import "package:antlr4dart/antlr4dart.dart";}
 
 tokens {A,B,C}
 a : ~A ;

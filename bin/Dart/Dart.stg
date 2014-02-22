@@ -65,13 +65,13 @@ abstract class <file.grammarName>Listener extends ParseTreeListener {
    * Enter a parse tree produced by [<file.parserName>.<lname>].
    * [ctx] is the parse tree.
    */
-   void enter<lname; format="cap">(<file.parserName><lname; format="cap">Context ctx);
+   void enter<lname; format="cap">(<lname; format="cap">Context ctx);
 
   /**
    * Exit a parse tree produced by [<file.parserName>.<lname>].
    * [ctx] is the parse tree.
    */
-  void exit<lname; format="cap">(<file.parserName><lname; format="cap">Context ctx);}; separator="\n">
+  void exit<lname; format="cap">(<lname; format="cap">Context ctx);}; separator="\n">
 }
 >>
 
@@ -93,12 +93,12 @@ class <file.grammarName>BaseListener implements <file.grammarName>Listener {
   /**
    * The default implementation does nothing.
    */
-  void enter<lname; format="cap">(<file.parserName><lname; format="cap">Context ctx) {\}
+  void enter<lname; format="cap">(<lname; format="cap">Context ctx) {\}
 
   /**
    * The default implementation does nothing.
    */
-  void exit<lname; format="cap">(<file.parserName><lname; format="cap">Context ctx) {\}}; separator="\n">
+  void exit<lname; format="cap">(<lname; format="cap">Context ctx) {\}}; separator="\n">
 
   /**
    * The default implementation does nothing.
@@ -143,7 +143,7 @@ abstract class <file.grammarName>Visitor\<T> extends ParseTreeVisitor\<T> {
  * [ctx] is the parse tree.
  * Return the visitor result.
  */
-T visit<lname; format="cap">(<file.parserName><lname; format="cap">Context ctx);}; separator="\n\n">
+T visit<lname; format="cap">(<lname; format="cap">Context ctx);}; separator="\n\n">
 }
 >>
 
@@ -168,7 +168,7 @@ class <file.grammarName>BaseVisitor\<T> extends AbstractParseTreeVisitor\<T> imp
  * The default implementation returns the result of calling
  * [visitChildren] on [ctx].
  */
-T visit<lname; format="cap">(<file.parserName><lname; format="cap">Context ctx) => visitChildren(ctx);}; separator="\n\n">
+T visit<lname; format="cap">(<lname; format="cap">Context ctx) => visitChildren(ctx);}; separator="\n\n">
 }
 >>
 
@@ -279,8 +279,8 @@ RuleSempredFunction(r, actions) ::= <<
 RuleFunction(currentRule,code,locals,ruleCtx,altLabelCtxs,namedActions,finallyAction,postamble,exceptions) ::= <<
 
 
-<if(currentRule.modifiers)><currentRule.modifiers:{f | <f> }><else><endif><parser.name><currentRule.ctxType> <currentRule.name>(<currentRule.args; separator=", ">) {
-  var localCtx = new <parser.name><currentRule.ctxType><if(currentRule.args)>.args<endif>(context, state<currentRule.args:{a | , <a.name>}>);
+<if(currentRule.modifiers)><currentRule.modifiers:{f | <f> }><else><endif><currentRule.ctxType> <currentRule.name>(<currentRule.args; separator=", ">) {
+  var localCtx = new <currentRule.ctxType><if(currentRule.args)>.args<endif>(context, state<currentRule.args:{a | , <a.name>}>);
   enterRule(localCtx, <currentRule.startState>, RULE_<currentRule.name>);
   <namedActions.init>
   <locals; separator="\n">
@@ -307,10 +307,10 @@ LeftRecursiveRuleFunction(currentRule,code,locals,ruleCtx,altLabelCtxs, namedAct
 <<
 
 
-<parser.name><currentRule.ctxType> <currentRule.name>([int _p = 0]<currentRule.args:{a | , <a>}>) {
+<currentRule.ctxType> <currentRule.name>([int _p = 0]<currentRule.args:{a | , <a>}>) {
   var _parentctx = context;
   int _parentState = state;
-  var localCtx = new <parser.name><currentRule.ctxType>(context, _parentState<currentRule.args:{a | , <a.name>}>);
+  var localCtx = new <currentRule.ctxType>(context, _parentState<currentRule.args:{a | , <a.name>}>);
   var _prevctx = localCtx;
   int _startState = <currentRule.startState>;
   enterRecursionRule(localCtx, <currentRule.startState>, RULE_<currentRule.name>, _p);
@@ -336,7 +336,7 @@ LeftRecursiveRuleFunction(currentRule,code,locals,ruleCtx,altLabelCtxs, namedAct
 >>
 
 CodeBlockForOuterMostAlt(currentOuterMostAltCodeBlock, locals, preamble, ops) ::= <<
-<if(currentOuterMostAltCodeBlock.altLabel)>localCtx = new <parser.name><currentOuterMostAltCodeBlock.altLabel; format="cap">Context(localCtx);<endif>
+<if(currentOuterMostAltCodeBlock.altLabel)>localCtx = new <currentOuterMostAltCodeBlock.altLabel; format="cap">Context(localCtx);<endif>
 enterOuterAlt(localCtx, <currentOuterMostAltCodeBlock.alt.altNum>);
 <CodeBlockForAlt(currentAltCodeBlock=currentOuterMostAltCodeBlock, ...)>
 >>
@@ -629,16 +629,16 @@ ThisRulePropertyRef_stop(r)	 ::= "localCtx.stop"
 ThisRulePropertyRef_text(r)	 ::= "inputSource.getText(localCtx.start, inputSource.lookToken(-1))"
 ThisRulePropertyRef_ctx(r)	 ::= "localCtx"
 
-NonLocalAttrRef(s) ::= "(getInvokingContext(<s.ruleIndex>) as <parser.name><s.ruleName; format=\"cap\">Context).<s.name>"
-SetNonLocalAttr(s, rhsChunks) ::= "(getInvokingContext(<s.ruleIndex>) as <parser.name><s.ruleName; format=\"cap\">Context).<s.name> = <rhsChunks>;"
+NonLocalAttrRef(s) ::= "(getInvokingContext(<s.ruleIndex>) as <s.ruleName; format=\"cap\">Context).<s.name>"
+SetNonLocalAttr(s, rhsChunks) ::= "(getInvokingContext(<s.ruleIndex>) as <s.ruleName; format=\"cap\">Context).<s.name> = <rhsChunks>;"
 
 AddToLabelList(a) ::= "<ctx(a.label)>.<a.listName>.add(<labelref(a.label)>);"
 
 TokenDecl(t) ::= "<TokenLabelType()> <t.name>;"
 TokenTypeDecl(t) ::= "int <t.name>;"
 TokenListDecl(t) ::= "List\<Token> <t.name> = new List\<Token>();"
-RuleContextDecl(r) ::= "<parser.name><r.ctxName> <r.name>;"
-RuleContextListDecl(rdecl) ::= "List\<<parser.name><rdecl.ctxName>> <rdecl.name> = new List\<<parser.name><rdecl.ctxName>>();"
+RuleContextDecl(r) ::= "<r.ctxName> <r.name>;"
+RuleContextListDecl(rdecl) ::= "List\<<rdecl.ctxName>> <rdecl.name> = new List\<<rdecl.ctxName>>();"
 ContextTokenListGetterDecl(t)  ::= "List\<TerminalNode> <t.name>s() => getTokens(<parser.name>.<t.name>);"
 
 ContextTokenGetterDecl(t) ::= <<
@@ -651,15 +651,15 @@ ContextTokenListIndexedGetterDecl(t)  ::= <<
 TerminalNode get<t.name;format="cap">(int i) => getToken(<parser.name>.<t.name>, i);
 >>
 ContextRuleGetterDecl(r) ::= <<
-<parser.name><r.ctxName> get<r.name; format="cap">() {
-  return getRuleContext(<parser.name><r.ctxName>, 0);
+<r.ctxName> get<r.name; format="cap">() {
+  return getRuleContext(<r.ctxName>, 0);
 }
 >>
 ContextRuleListGetterDecl(r) ::= <<
-List\<<parser.name><r.ctxName>\> get <r.name>s => getRuleContexts(<parser.name><r.ctxName>);
+List\<<r.ctxName>\> get <r.name>s => getRuleContexts(<r.ctxName>);
 >>
 ContextRuleListIndexedGetterDecl(r) ::= <<
-<parser.name><r.ctxName> get<r.name;format="cap">(int i) => getRuleContext(<parser.name><r.ctxName>, i);
+<r.ctxName> get<r.name;format="cap">(int i) => getRuleContext(<r.ctxName>, i);
 >>
 
 LexerRuleContext() ::= "RuleContext"
@@ -679,16 +679,16 @@ CaptureNextToken(d) ::= "<d.varName> = inputSource.lookToken(1);"
 CaptureNextTokenType(d) ::= "<d.varName> = inputSource.lookAhead(1);"
 
 StructDecl(struct,attrs,getters,dispatchMethods,interfaces,extensionMembers, superClass={ParserRuleContext}) ::= <<
-class <parser.name><struct.name> extends <superClass><if(interfaces)> implements <interfaces; separator=", "><endif> {
+class <struct.name> extends <superClass><if(interfaces)> implements <interfaces; separator=", "><endif> {
   <if(attrs)><\n><attrs:{a | <a>}; separator="\n"><endif>
   
-  <parser.name><struct.name>(ParserRuleContext parent, int invokingState) : super(parent, invokingState);
+  <struct.name>(ParserRuleContext parent, int invokingState) : super(parent, invokingState);
   
-  <if(struct.ctorAttrs)><parser.name><struct.name>.args(ParserRuleContext parent, int invokingState<struct.ctorAttrs:{a | , this.<a.name>}>) : super(parent, invokingState);<endif>
+  <if(struct.ctorAttrs)><struct.name>.args(ParserRuleContext parent, int invokingState<struct.ctorAttrs:{a | , this.<a.name>}>) : super(parent, invokingState);<endif>
   int get ruleIndex => <parser.name>.RULE_<struct.derivedFromName>;
   <if(getters)><\n><getters:{g | <g>}; separator="\n\n"><endif>
 <if(struct.provideCopyFrom)> <! don't need copy unless we have subclasses !>
-  <parser.name><struct.name>.from(<parser.name><struct.name> ctx) : super.from(ctx) {
+  <struct.name>.from(<struct.name> ctx) : super.from(ctx) {
     <struct.attrs:{a | <a.name> = ctx.<a.name>;}; separator="\n">
   }
 <endif>
@@ -698,10 +698,10 @@ class <parser.name><struct.name> extends <superClass><if(interfaces)> implements
 >>
 
 AltLabelStructDecl(struct,attrs,getters,dispatchMethods,currentRule) ::= <<
-class <parser.name><struct.name> extends <parser.name><currentRule.name; format="cap">Context {
+class <struct.name> extends <currentRule.name; format="cap">Context {
   <attrs:{a | <a>}; separator="\n">
   <getters:{g | <g>}; separator="\n">
-  <parser.name><struct.name>(<parser.name><currentRule.name; format="cap">Context ctx) : super.from(ctx);
+  <struct.name>(<currentRule.name; format="cap">Context ctx) : super.from(ctx);
   <dispatchMethods; separator="\n">
 }
 >>
@@ -733,19 +733,19 @@ recRuleSetReturnAction(src,name)	  ::= "$<name> = $<src>.<name>;"
 recRuleSetStopToken()                 ::= "context.stop = inputSource.lookToken(-1);"
 
 recRuleAltStartAction(ruleName, ctxName, label) ::= <<
-localCtx = new <parser.name><ctxName>Context(_parentctx, _parentState);
+localCtx = new <ctxName>Context(_parentctx, _parentState);
 <if(label)>localCtx.<label> = _prevctx;<endif>
 pushNewRecursionContext(localCtx, _startState, RULE_<ruleName>);
 >>
 
 recRuleLabeledAltStartAction(ruleName, currentAltLabel, label) ::= <<
-localCtx = new <parser.name><currentAltLabel; format="cap">Context(new <parser.name><ruleName; format="cap">Context(_parentctx, _parentState));
+localCtx = new <currentAltLabel; format="cap">Context(new <ruleName; format="cap">Context(_parentctx, _parentState));
 <if(label)>localCtx.<label> = _prevctx;<endif>
 pushNewRecursionContext(localCtx, _startState, RULE_<ruleName>);
 >>
 
 recRuleReplaceContext(ctxName) ::= <<
-localCtx = new <parser.name><ctxName>Context(localCtx);
+localCtx = new <ctxName>Context(localCtx);
 context = localCtx;
 _prevctx = localCtx;
 >>
