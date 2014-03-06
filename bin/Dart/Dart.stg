@@ -639,25 +639,24 @@ TokenTypeDecl(t) ::= "int <t.name>;"
 TokenListDecl(t) ::= "List\<Token> <t.name> = new List\<Token>();"
 RuleContextDecl(r) ::= "<r.ctxName> <r.name>;"
 RuleContextListDecl(rdecl) ::= "List\<<rdecl.ctxName>> <rdecl.name> = new List\<<rdecl.ctxName>>();"
-ContextTokenListGetterDecl(t)  ::= "List\<TerminalNode> <t.name>s() => getTokens(<parser.name>.<t.name>);"
+ContextTokenListGetterDecl(t)  ::= "List\<TerminalNode> get<t.name>s() => getTokens(<parser.name>.<t.name>);"
 
 ContextTokenGetterDecl(t) ::= <<
-TerminalNode get<t.name;format="cap">() {
-  return getToken(<parser.name>.<t.name>, 0);
-}
+TerminalNode get<t.name;format="cap">() => getToken(<parser.name>.<t.name>, 0);
 >>
 
 ContextTokenListIndexedGetterDecl(t)  ::= <<
 TerminalNode get<t.name;format="cap">(int i) => getToken(<parser.name>.<t.name>, i);
 >>
+
 ContextRuleGetterDecl(r) ::= <<
-<r.ctxName> get<r.name; format="cap">() {
-  return getRuleContext(<r.ctxName>, 0);
-}
+<r.ctxName> get<r.name; format="cap">() => getRuleContext(<r.ctxName>, 0);
 >>
+
 ContextRuleListGetterDecl(r) ::= <<
 List\<<r.ctxName>\> get <r.name>s => getRuleContexts(<r.ctxName>);
 >>
+
 ContextRuleListIndexedGetterDecl(r) ::= <<
 <r.ctxName> get<r.name;format="cap">(int i) => getRuleContext(<r.ctxName>, i);
 >>
