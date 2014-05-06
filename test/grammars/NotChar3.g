@@ -11,4 +11,4 @@ List log = new List();
 }
 
 a : A {log.add($A.text);} ;
-A : h=~('b'|'c') ;
+A : ~('b'|'c') ;

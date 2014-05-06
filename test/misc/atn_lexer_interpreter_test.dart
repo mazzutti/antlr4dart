@@ -174,10 +174,6 @@ main() {
 List<String> _getTokenTypes(Lexer lexer, StringSource input) {
   LexerAtnSimulator interp = lexer.interpreter;
   List<String> rules = new List<String>.from(lexer.ruleNames);
-  for (int i = 1; i < lexer.tokenNames.length; i++) {
-    String rule = lexer.tokenNames[i];
-    if (rule[0] != "'") rules[i - 1] = rule;
-  }
   List<String> tokenTypes = new List<String>();
   int ttype;
   bool hitEOF = false;

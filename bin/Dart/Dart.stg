@@ -466,7 +466,7 @@ StarBlock(choice, alts, sync, iteration) ::= <<
 state = <choice.stateNumber>;
 errorHandler.sync(this);
 _alt = interpreter.adaptivePredict(inputSource, <choice.decision>, context);
-while (_alt != <choice.exitAlt> && _alt != -1) {
+while (_alt != <choice.exitAlt> && _alt != Atn.INVALID_ALT_NUMBER) {
   if (_alt == 1<if(!choice.ast.greedy)> + 1<endif>) {
     <iteration>
     <alts> <! should only be one !>
@@ -480,7 +480,7 @@ while (_alt != <choice.exitAlt> && _alt != -1) {
 PlusBlock(choice, alts, error) ::= <<
 state = <choice.blockStartStateNumber>; <! alt block decision !>
 errorHandler.sync(this);
-_alt = interpreter.adaptivePredict(inputSource, <choice.decision>, context);
+_alt = 1<if(!choice.ast.greedy)>+1<endif>;
 do {
   switch (_alt) {
   <alts:{alt|case <i><if(!choice.ast.greedy)> + 1<endif>:
@@ -492,7 +492,7 @@ do {
   state = <choice.loopBackStateNumber>; <! loopback/exit decision !>
   errorHandler.sync(this);
   _alt = interpreter.adaptivePredict(inputSource, <choice.decision>, context);
-} while (_alt != <choice.exitAlt> && _alt != -1);
+} while (_alt != <choice.exitAlt> && _alt != Atn.INVALID_ALT_NUMBER);
 >>
 
 Sync(s) ::= "sync(<s.expecting.name>);"
@@ -778,8 +778,7 @@ class <lexer.name> extends <superClass> {
   ];
 
   final List\<String> tokenNames = [
-    "\<INVALID>",
-    <lexer.tokenNames:{t | <t>}; separator=", ", wrap, anchor>
+    <lexer.tokenNames:{t | <t>}; null="\"\<INVALID>\"", separator=", ", wrap, anchor>
   ];
   
   final List\<String> ruleNames = [
