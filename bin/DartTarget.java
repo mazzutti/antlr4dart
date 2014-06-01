@@ -32,16 +32,9 @@
 package org.antlr.v4.codegen;
 
 import org.antlr.v4.Tool;
-import org.antlr.v4.codegen.model.RuleFunction;
 import org.antlr.v4.codegen.model.Lexer;
 import org.antlr.v4.codegen.model.Parser;
-import org.antlr.v4.codegen.model.SerializedATN;
-import org.antlr.v4.codegen.model.LeftRecursiveRuleFunction;
-import org.antlr.v4.codegen.model.RuleSempredFunction;
-import org.antlr.v4.codegen.model.decl.AttributeDecl;
-import org.antlr.v4.tool.Attribute;
 import org.antlr.v4.tool.Grammar;
-import org.antlr.v4.tool.Rule;
 import org.antlr.v4.tool.ast.GrammarAST;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.ST.AttributeList;
@@ -49,9 +42,7 @@ import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.StringRenderer;
 import org.stringtemplate.v4.misc.Aggregate;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -148,6 +139,11 @@ public class DartTarget extends Target {
 		if (v < Character.MIN_VALUE || v > Character.MAX_VALUE) {
 			throw new IllegalArgumentException(String.format("Cannot encode the specified value: %d", v));
 		}
+
+		if (v >= 0 && v <= 255) {
+			return "\\x"+ Integer.toHexString(v|0x100).substring(1,3);
+		}
+
 		String hex = Integer.toHexString(v|0x10000).substring(1,5);
 		return "\\u"+hex;
 	}
@@ -215,6 +211,7 @@ public class DartTarget extends Target {
 
 		private AltLabelCtxsReWriter() {}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void visit(ST st) {
 			if (st == null) return;

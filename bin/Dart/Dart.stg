@@ -650,15 +650,15 @@ TerminalNode get<t.name;format="cap">(int i) => getToken(<parser.name>.<t.name>,
 >>
 
 ContextRuleGetterDecl(r) ::= <<
-<r.ctxName> get<r.name; format="cap">() => getRuleContext(<r.ctxName>, 0);
+<r.ctxName> get<r.name; format="cap">() => getRuleContext((c) => c is <r.ctxName>, 0);
 >>
 
 ContextRuleListGetterDecl(r) ::= <<
-List\<<r.ctxName>\> get<r.name; format="cap">s() => getRuleContexts(<r.ctxName>);
+List\<<r.ctxName>\> get<r.name; format="cap">s() => getRuleContexts((c) => c is <r.ctxName>);
 >>
 
 ContextRuleListIndexedGetterDecl(r) ::= <<
-<r.ctxName> get<r.name;format="cap">(int i) => getRuleContext(<r.ctxName>, i);
+<r.ctxName> get<r.name;format="cap">(int i) => getRuleContext((c) => c is <r.ctxName>, i);
 >>
 
 LexerRuleContext() ::= "RuleContext"
