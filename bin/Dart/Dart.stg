@@ -54,23 +54,17 @@ library <file.genPackage>;
 <endif>
 <header>
 
-/**
- * This abstract class defines a complete listener for a parse tree produced by
- * [<file.parserName>].
- */
+/// This abstract class defines a complete listener for a parse tree produced by
+/// [<file.parserName>].
 abstract class <file.grammarName>Listener extends ParseTreeListener {
 <file.listenerNames:{lname |
 
-  /**
-   * Enter a parse tree produced by [<file.parserName>.<lname>].
-   * [ctx] is the parse tree.
-   */
+  /// Enter a parse tree produced by [<file.parserName>.<lname>].
+  /// [ctx] is the parse tree.
    void enter<lname; format="cap">(<lname; format="cap">Context ctx);
 
-  /**
-   * Exit a parse tree produced by [<file.parserName>.<lname>].
-   * [ctx] is the parse tree.
-   */
+  /// Exit a parse tree produced by [<file.parserName>.<lname>].
+  /// [ctx] is the parse tree.
   void exit<lname; format="cap">(<lname; format="cap">Context ctx);}; separator="\n">
 }
 >>
@@ -82,42 +76,28 @@ part of <file.genPackage>;
 <endif>
 <header>
 
-/**
- * This class provides an empty implementation of [<file.grammarName>Listener],
- * which can be extended to create a listener which only needs to handle a subset
- * of the available methods.
- */
+/// This class provides an empty implementation of [<file.grammarName>Listener],
+/// which can be extended to create a listener which only needs to handle 
+/// a subset of the available methods.
 class <file.grammarName>BaseListener implements <file.grammarName>Listener {
 <file.listenerNames:{lname |
   
-  /**
-   * The default implementation does nothing.
-   */
+  /// The default implementation does nothing.
   void enter<lname; format="cap">(<lname; format="cap">Context ctx) {\}
 
-  /**
-   * The default implementation does nothing.
-   */
+  /// The default implementation does nothing.
   void exit<lname; format="cap">(<lname; format="cap">Context ctx) {\}}; separator="\n">
 
-  /**
-   * The default implementation does nothing.
-   */
+  /// The default implementation does nothing.
   void enterEveryRule(ParserRuleContext ctx) {}
 
-  /**
-   * The default implementation does nothing.
-   */
+  /// The default implementation does nothing.
   void exitEveryRule(ParserRuleContext ctx) {}
 
-  /**
-   * The default implementation does nothing.
-   */
+  /// The default implementation does nothing.
   void visitTerminal(TerminalNode node) {}
   
-  /**
-   * The default implementation does nothing.
-   */
+  /// The default implementation does nothing.
   void visitErrorNode(ErrorNode node) {}
 }
 >>
@@ -129,20 +109,16 @@ part of <file.genPackage>;
 <endif>
 <header>
 
-/**
- * This abstract class defines a complete generic visitor for a parse tree 
- * produced by [<file.parserName>].
- *
- * [T] is the eturn type of the visit operation. Use `void` for
- * operations with no return type.
- */
+/// This abstract class defines a complete generic visitor for a parse tree 
+/// produced by [<file.parserName>].
+///
+/// [T] is the eturn type of the visit operation. Use `void` for
+/// operations with no return type.
 abstract class <file.grammarName>Visitor\<T> extends ParseTreeVisitor\<T> {
   <file.visitorNames:{lname |
-/**
- * Visit a parse tree produced by [<file.parserName>.<lname>].
- * [ctx] is the parse tree.
- * Return the visitor result.
- */
+/// Visit a parse tree produced by [<file.parserName>.<lname>].
+/// [ctx] is the parse tree.
+/// Return the visitor result.
 T visit<lname; format="cap">(<lname; format="cap">Context ctx);}; separator="\n\n">
 }
 >>
@@ -154,20 +130,16 @@ part of <file.genPackage>;
 <endif>
 <header>
 
-/**
- * This class provides an empty implementation of [<file.grammarName>Visitor],
- * which can be extended to create a visitor which only needs to handle a subset
- * of the available methods.
- *
- * [T] is the return type of the visit operation. Use `void` for
- * operations with no return type.
- */
+/// This class provides an empty implementation of [<file.grammarName>Visitor],
+/// which can be extended to create a visitor which only needs to handle 
+/// a subset of the available methods.
+///
+/// [T] is the return type of the visit operation. Use `void` for
+/// operations with no return type.
 class <file.grammarName>BaseVisitor\<T> extends AbstractParseTreeVisitor\<T> implements <file.grammarName>Visitor\<T> {
   <file.visitorNames:{lname |
-/**
- * The default implementation returns the result of calling
- * [visitChildren] on [ctx].
- */
+/// The default implementation returns the result of calling
+/// [visitChildren] on [ctx].
 T visit<lname; format="cap">(<lname; format="cap">Context ctx) => visitChildren(ctx);}; separator="\n\n">
 }
 >>
@@ -252,10 +224,8 @@ parser_ctor(p) ::= <<
 }
 >>
 
-/* 
- * This generates a private method since the actionIndex is generated, making an
- * overriding implementation impossible to maintain.
- */
+/// This generates a private method since the actionIndex is generated, making an
+/// overriding implementation impossible to maintain.
 RuleActionFunction(r, actions) ::= <<
 <\n>void _<r.name>_action(<r.ctxType> localCtx, int actionIndex) {
   switch (actionIndex) {
@@ -264,9 +234,8 @@ RuleActionFunction(r, actions) ::= <<
 }
 >>
 
-/* This generates a private method since the predIndex is generated, making an
- * overriding implementation impossible to maintain.
- */
+/// This generates a private method since the predIndex is generated, making an
+/// overriding implementation impossible to maintain.
 RuleSempredFunction(r, actions) ::= <<
 <\n>bool _<r.name>_sempred(<r.ctxType> localCtx, int predIndex) {
   switch (predIndex) {
@@ -305,7 +274,6 @@ RuleFunction(currentRule,args,code,locals,ruleCtx,altLabelCtxs,namedActions,fina
 
 LeftRecursiveRuleFunction(currentRule,args,code,locals,ruleCtx,altLabelCtxs, namedActions,finallyAction,postamble) ::=
 <<
-
 
 <currentRule.ctxType> <currentRule.name>([int _p = 0]<args:{a | , <a>}>) {
   var _parentctx = context;
@@ -535,11 +503,6 @@ state = <r.stateNumber>;
 <if(r.labels)><r.labels:{l | <labelref(l)> = }><endif><r.name>(<if(r.ast.options.p)><r.ast.options.p><if(argExprsChunks)>,<endif><endif><argExprsChunks>);
 >>
 
-//InvokeRule(r, argExprsChunks) ::= <<
-//state = <r.stateNumber>; 
-//<if(r.labels)><r.labels:{l | <labelref(l)> = }><endif><r.name>(<argExprsChunks>);
-//>>
-
 MatchToken(m) ::= <<
 state = <m.stateNumber>; 
 <if(m.labels)><m.labels:{l | <labelref(l)> = }><endif>match(<m.name>);
@@ -584,8 +547,8 @@ catch (<catchArg>) {
 
 // lexer actions are not associated with model objects
 
-LexerSkipCommand()  ::= "skip();"
-LexerMoreCommand()  ::= "more();"
+LexerSkipCommand()    ::= "skip();"
+LexerMoreCommand()    ::= "more();"
 LexerPopModeCommand() ::= "popMode();"
 
 LexerTypeCommand(arg)      ::= "type = <arg>;"
@@ -663,10 +626,8 @@ ContextRuleListIndexedGetterDecl(r) ::= <<
 
 LexerRuleContext() ::= "RuleContext"
 
-/** 
- * The rule context name is the rule followed by a suffix; e.g.,
- *  r becomes rContext.
- */
+/// The rule context name is the rule followed by a suffix; e.g.,
+/// r becomes rContext.
 RuleContextNameSuffix() ::= "Context"
 
 ImplicitTokenLabel(tokenName)     ::= "<tokenName>"
@@ -721,10 +682,10 @@ dynamic accept(ParseTreeVisitor visitor) {
 
 AttributeDecl(d) ::= "<if(!d.type)>dynamic <endif><d.decl>"
 
-/** If we don't know location of label def x, use this template */
+// If we don't know location of label def x, use this template
 labelref(x) ::= "<if(!x.isLocal)>localCtx.<endif><x.name>"
 
-/** For any action chunk, what is correctly-typed context struct ptr? */
+// For any action chunk, what is correctly-typed context struct ptr?
 ctx(actionChunk) ::= "localCtx"
 // used for left-recursive rules
 recRuleAltPredicate(ruleName,opPrec)  ::= "precpred(context, <opPrec>)"
@@ -813,9 +774,8 @@ final Atn atn = AtnSimulator.deserialize(_serializedAtn);
 <endif>
 >>
 
-/** Using a type to init value map, try to init a type; if not in table
- *	must be an object, default value is "null".
- */
+/// Using a type to init value map, try to init a type; if not in table
+/// must be an object, default value is "null".
 initValue(typeName) ::= <<
 <dartTypeInitMap.(typeName)>
 >>
