@@ -276,10 +276,10 @@ RuleSempredFunction(r, actions) ::= <<
 }
 >>
 
-RuleFunction(currentRule,code,locals,ruleCtx,altLabelCtxs,namedActions,finallyAction,postamble,exceptions) ::= <<
+RuleFunction(currentRule,args,code,locals,ruleCtx,altLabelCtxs,namedActions,finallyAction,postamble,exceptions) ::= <<
 
 
-<if(currentRule.modifiers)><currentRule.modifiers:{f | <f> }><else><endif><currentRule.ctxType> <currentRule.name>(<currentRule.args; separator=", ">) {
+<if(currentRule.modifiers)><currentRule.modifiers:{f | <f> }><else><endif><currentRule.ctxType> <currentRule.name>(<args; separator=", ">) {
   var localCtx = new <currentRule.ctxType><if(currentRule.args)>.args<endif>(context, state<currentRule.args:{a | , <a.name>}>);
   enterRule(localCtx, <currentRule.startState>, RULE_<currentRule.name>);
   <namedActions.init>
@@ -303,14 +303,14 @@ RuleFunction(currentRule,code,locals,ruleCtx,altLabelCtxs,namedActions,finallyAc
 }
 >>
 
-LeftRecursiveRuleFunction(currentRule,code,locals,ruleCtx,altLabelCtxs, namedActions,finallyAction,postamble) ::=
+LeftRecursiveRuleFunction(currentRule,args,code,locals,ruleCtx,altLabelCtxs, namedActions,finallyAction,postamble) ::=
 <<
 
 
-<currentRule.ctxType> <currentRule.name>([int _p = 0]<currentRule.args:{a | , <a>}>) {
+<currentRule.ctxType> <currentRule.name>([int _p = 0]<args:{a | , <a>}>) {
   var _parentctx = context;
   int _parentState = state;
-  var localCtx = new <currentRule.ctxType>(context, _parentState<currentRule.args:{a | , <a.name>}>);
+  var localCtx = new <currentRule.ctxType>(context, _parentState<args:{a | , <a.name>}>);
   var _prevctx = localCtx;
   int _startState = <currentRule.startState>;
   enterRecursionRule(localCtx, <currentRule.startState>, RULE_<currentRule.name>, _p);
@@ -634,11 +634,11 @@ SetNonLocalAttr(s, rhsChunks) ::= "(getInvokingContext(<s.ruleIndex>) as <s.rule
 
 AddToLabelList(a) ::= "<ctx(a.label)>.<a.listName>.add(<labelref(a.label)>);"
 
-TokenDecl(t) ::= "<TokenLabelType()> <t.name>;"
+TokenDecl(t) ::= "<TokenLabelType()> <t.name>"
 TokenTypeDecl(t) ::= "int <t.name>;"
-TokenListDecl(t) ::= "List\<Token> <t.name> = new List\<Token>();"
-RuleContextDecl(r) ::= "<r.ctxName> <r.name>;"
-RuleContextListDecl(rdecl) ::= "List\<<rdecl.ctxName>> <rdecl.name> = new List\<<rdecl.ctxName>>();"
+TokenListDecl(t) ::= "List\<Token> <t.name> = new List\<Token>()"
+RuleContextDecl(r) ::= "<r.ctxName> <r.name>"
+RuleContextListDecl(rdecl) ::= "List\<<rdecl.ctxName>> <rdecl.name> = new List\<<rdecl.ctxName>>()"
 ContextTokenListGetterDecl(t)  ::= "List\<TerminalNode> get<t.name>s() => getTokens(<parser.name>.<t.name>);"
 
 ContextTokenGetterDecl(t) ::= <<
@@ -654,7 +654,7 @@ ContextRuleGetterDecl(r) ::= <<
 >>
 
 ContextRuleListGetterDecl(r) ::= <<
-List\<<r.ctxName>\> get <r.name>s => getRuleContexts(<r.ctxName>);
+List\<<r.ctxName>\> get<r.name; format="cap">s() => getRuleContexts(<r.ctxName>);
 >>
 
 ContextRuleListIndexedGetterDecl(r) ::= <<
@@ -669,26 +669,26 @@ LexerRuleContext() ::= "RuleContext"
  */
 RuleContextNameSuffix() ::= "Context"
 
-ImplicitTokenLabel(tokenName) ::= "<tokenName>"
+ImplicitTokenLabel(tokenName)     ::= "<tokenName>"
 ImplicitRuleLabel(ruleName)	  ::= "<ruleName>"
-ImplicitSetLabel(id)		  ::= "_tset<id>"
+ImplicitSetLabel(id)		  ::= "tset<id>"
 ListLabelName(label)		  ::= "<label>"
 
 CaptureNextToken(d) ::= "<d.varName> = inputSource.lookToken(1);"
 CaptureNextTokenType(d) ::= "<d.varName> = inputSource.lookAhead(1);"
 
-StructDecl(struct,attrs,getters,dispatchMethods,interfaces,extensionMembers, superClass={ParserRuleContext}) ::= <<
+StructDecl(struct,ctorAttrs,attrs,getters,dispatchMethods,interfaces,extensionMembers, superClass={ParserRuleContext}) ::= <<
 class <struct.name> extends <superClass><if(interfaces)> implements <interfaces; separator=", "><endif> {
-  <if(attrs)><\n><attrs:{a | <a>}; separator="\n"><endif>
+  <if(attrs)><\n><attrs:{a | <a>;}; separator="\n"><endif>
   
   <struct.name>(ParserRuleContext parent, int invokingState) : super(parent, invokingState);
   
-  <if(struct.ctorAttrs)><struct.name>.args(ParserRuleContext parent, int invokingState<struct.ctorAttrs:{a | , this.<a.name>}>) : super(parent, invokingState);<endif>
+  <if(ctorAttrs)><struct.name>.args(ParserRuleContext parent, int invokingState<struct.ctorAttrs:{a | , this.<a.name>}>) : super(parent, invokingState);<\n><endif>
   int get ruleIndex => <parser.name>.RULE_<struct.derivedFromName>;
   <if(getters)><\n><getters:{g | <g>}; separator="\n\n"><endif>
 <if(struct.provideCopyFrom)> <! don't need copy unless we have subclasses !>
   <struct.name>.from(<struct.name> ctx) : super.from(ctx) {
-    <struct.attrs:{a | <a.name> = ctx.<a.name>;}; separator="\n">
+    <ctorAttrs:{a | <a> = ctx.<a>;}; separator="\n">
   }
 <endif>
   <if(dispatchMethods)><\n><dispatchMethods; separator="\n\n"><endif>
@@ -698,7 +698,7 @@ class <struct.name> extends <superClass><if(interfaces)> implements <interfaces;
 
 AltLabelStructDecl(struct,attrs,getters,dispatchMethods,currentRule) ::= <<
 class <struct.name> extends <currentRule.name; format="cap">Context {
-  <attrs:{a | <a>}; separator="\n">
+  <attrs:{a | <a>;}; separator="\n">
   <getters:{g | <g>}; separator="\n">
   <struct.name>(<currentRule.name; format="cap">Context ctx) : super.from(ctx);
   <dispatchMethods; separator="\n">
@@ -719,7 +719,7 @@ dynamic accept(ParseTreeVisitor visitor) {
 }
 >>
 
-AttributeDecl(d) ::= "<d.decl>;"
+AttributeDecl(d) ::= "<if(!d.type)>dynamic <endif><d.decl>"
 
 /** If we don't know location of label def x, use this template */
 labelref(x) ::= "<if(!x.isLocal)>localCtx.<endif><x.name>"

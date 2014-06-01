@@ -13,8 +13,8 @@ List log = new List();
 s @after {log.add($ctx.toStringTree(this));} : e EOF ;
 e : e '*' e
   | e '+' e
-  | e '?'<assoc=right> e ':' e
-  | e '='<assoc=right> e
+  | e '?' e ':' e
+  | e '=' e
   | ID
   ;
 ID : 'a'..'z'+ ;

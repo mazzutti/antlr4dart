@@ -31,6 +31,7 @@
 
 package org.antlr.v4.codegen;
 
+import org.antlr.v4.Tool;
 import org.antlr.v4.codegen.model.RuleFunction;
 import org.antlr.v4.codegen.model.Lexer;
 import org.antlr.v4.codegen.model.Parser;
@@ -187,10 +188,7 @@ public class DartTarget extends Target {
 	protected void genFile(Grammar g,
 						   ST outputFileST,
 						   String fileName) {
-		String recName = g.name + Grammar.getGrammarTypeToFileNameSuffix(g.getType());
-		AttributeDeclReWriter.apply(outputFileST);
 		AltLabelCtxsReWriter.apply(outputFileST);
-		RuleFunctionReWriter.apply(outputFileST);
 		TokenNamesReWriter.apply(outputFileST);
 		getCodeGenerator().write(outputFileST, dartfyFileName(fileName));
 	}
@@ -262,60 +260,6 @@ public class DartTarget extends Target {
 					}
 				}
 			}
-		}
-	}
-	
-	/**
-	  * Rewrites the attribute 'd' for the /AttributeDecl ST. This
-	  * rewriter prepends the dynamic keyword to the attribute declaration.
-	  */
-	private static class AttributeDeclReWriter implements STVisitor {
-		static void apply(ST outputFileST) {
-			AttributeDeclReWriter rewriter = new AttributeDeclReWriter();
-			STWalker walker = new STWalker(rewriter);
-			walker.walk(outputFileST);
-		}
-
-		private Set<ST> visited = new HashSet<ST>();
-   
-		private AttributeDeclReWriter(){}
-
-		@Override
-		public void visit(ST st) {
-			if (st == null) return;
-			if (visited.contains(st)) return;
-		    visited.add(st);
-			if (!"/AttributeDecl".equals(st.getName())) return;
-			AttributeDecl d = (AttributeDecl) st.getAttribute("d");
-			if (d.name == d.decl) d.decl = "dynamic " + d.name;
-		}
-	}
-	
-
-	private static class RuleFunctionReWriter implements STVisitor {
-		static void apply(ST outputFileST) {
-			RuleFunctionReWriter rewriter = new RuleFunctionReWriter();
-			STWalker walker = new STWalker(rewriter);
-			walker.walk(outputFileST);
-		}
-
-		private Set<ST> visited = new HashSet<ST>();
-  
-		private RuleFunctionReWriter(){}
-
-		@Override
-		public void visit(ST st) {
-			if (st == null) return;
-			if (visited.contains(st)) return;
-		    visited.add(st);
-			if (!"/RuleFunction".equals(st.getName())) return;
-			RuleFunction r = (RuleFunction) st.getAttribute("currentRule");
-			if (r.args != null) {
-				for (Attribute a : r.args) {
-					if (a.type == null) a.type = "dynamic";
-				}
-			}
-			
 		}
 	}
 	
@@ -455,5 +399,10 @@ public class DartTarget extends Target {
 	    	ident(level);
 	    	System.out.println(msg);
 	    }
+	}
+
+	@Override
+	public String getVersion() {
+		return Tool.VERSION;
 	}
 }

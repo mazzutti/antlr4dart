@@ -40,6 +40,7 @@ import 'misc/bug_test.dart' as bug;
 import 'misc/parameters_test.dart' as parameters;
 import 'misc/trace_test.dart' as trace;
 import 'misc/common_token_source_test.dart' as common_token_source;
+import 'misc/parser_interpreter_test.dart' as parser_interpreter;
 import 'misc/buffered_token_source_test.dart' as buffered_token_source;
 import 'sem_pred_eval_parser/sem_pred_test.dart' as sem_pred;
 import 'sets/set_test.dart' as set_test;
@@ -99,6 +100,7 @@ class TestRunner {
     parse_trees.main();
     left_recursion.main();
     listeners.main();
+    parser_interpreter.main();
   }
 }
 

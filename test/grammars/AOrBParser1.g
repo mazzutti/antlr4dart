@@ -4,9 +4,6 @@ options {
 language = Dart;
 }
 
-@header{library parser_interpreter_test.a_or_b_parser1;
-
-import "package:antlr4dart/antlr4dart.dart";}
-
+@header{part of parser_interpreter_test;}
 
 s : A{;} | B ;

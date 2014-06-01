@@ -31,7 +31,7 @@ class LeafListener extends LRBaseListener {
   void exitE(EContext ctx) {
     if (ctx.childCount == 3) {
       log.add("${ctx.getE(0).start.text} "
-        "${ctx.getE(1).start.text} ${ctx.es[0].start.text}");
+        "${ctx.getE(1).start.text} ${ctx.getEs()[0].start.text}");
     }
     else log.add(ctx.getINT().symbol.text);
   }

@@ -38,23 +38,23 @@ e   : '(' e ')'
     | e 'instanceof' e
     | e ('==' | '!=') e
     | e '&' e
-    | e '^'<assoc=right> e
+    | e '^' e
     | e '|' e
     | e '&&' e
     | e '||' e
     | e '?' e ':' e
-    | e ('='<assoc=right>
-    | '+='<assoc=right>
-    | '-='<assoc=right>
-    | '*='<assoc=right>
-    | '/='<assoc=right>
-    | '&='<assoc=right>
-    | '|='<assoc=right>
-    | '^='<assoc=right>
-    | '>>='<assoc=right>
-    | '>>>='<assoc=right>
-    | '<<='<assoc=right>
-    | '%='<assoc=right>) e
+    | e ('='
+    | '+='
+    | '-='
+    | '*='
+    | '/='
+    | '&='
+    | '|='
+    | '^='
+    | '>>='
+    | '>>>='
+    | '<<='
+    | '%=') e
     ;
 type: ID 
     | ID '[' ']'
