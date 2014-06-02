@@ -211,8 +211,8 @@ int _getMatchedAlt(LexerBuilder lexerBuilder,
   _IntTokenSource inputSource = new _IntTokenSource(types);
   ParserAtnSimulator interp = parser.interpreter;
   AtnState startState = atn.ruleToStartState[parser.ruleNames.indexOf("a")];
-  if (startState.transition(0).target is BlockStartState ) {
-    startState = startState.transition(0).target;
+  if (startState.getTransition(0).target is BlockStartState) {
+    startState = startState.getTransition(0).target;
   }
   return _matchAtn(parser, inputSource, startState);
 }
