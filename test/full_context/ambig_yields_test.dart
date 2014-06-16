@@ -18,6 +18,5 @@ main() {
     parser.s();
     var expectedMsgs = ["reportAttemptingFullContext d=0 (s), input='abc'"];
     expect(errorListener.errorMessages, equals(expectedMsgs));
-    expect(parser.log, equals(["Decision 0:\ns0-ID->:s1^=>1\n"]));
   });
 }

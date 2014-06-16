@@ -10,7 +10,7 @@ language = Dart;
 List log = new List();
 }
 
-s @after {log.add($ctx.toStringTree(this));} : e ;
+s @after {log.add($ctx.toString(this));} : e ;
 e : a=e op=('*'|'/') b=e  {}
   | INT {}
   | '(' x=e ')' {}

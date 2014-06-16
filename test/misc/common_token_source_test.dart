@@ -17,11 +17,11 @@ main() {
       new CommonToken.ofType(1,"\n"),
       new CommonToken.ofType(Token.EOF, "")
     ];
-    tokens[0].channel = Lexer.HIDDEN;
-    tokens[2].channel = Lexer.HIDDEN;
-    tokens[5].channel = Lexer.HIDDEN;
-    tokens[6].channel = Lexer.HIDDEN;
-    tokens[8].channel = Lexer.HIDDEN;
+    tokens[0].channel = Token.HIDDEN_CHANNEL;
+    tokens[2].channel = Token.HIDDEN_CHANNEL;
+    tokens[5].channel = Token.HIDDEN_CHANNEL;
+    tokens[6].channel = Token.HIDDEN_CHANNEL;
+    tokens[8].channel = Token.HIDDEN_CHANNEL;
 
     var lexer = new TokenProviderTest1(tokens) ; // simulate input " x =34  ;\n"
     var source = new CommonTokenSource(lexer);
@@ -57,12 +57,12 @@ main() {
       new CommonToken.ofType(1,"\n"),
       new CommonToken.ofType(Token.EOF, "")
     ];
-    tokens[0].channel = Lexer.HIDDEN;
-    tokens[2].channel = Lexer.HIDDEN;
-    tokens[5].channel = Lexer.HIDDEN;
-    tokens[6].channel = Lexer.HIDDEN;
-    tokens[8].channel = Lexer.HIDDEN;
-    tokens[9].channel = Lexer.HIDDEN;
+    tokens[0].channel = Token.HIDDEN_CHANNEL;
+    tokens[2].channel = Token.HIDDEN_CHANNEL;
+    tokens[5].channel = Token.HIDDEN_CHANNEL;
+    tokens[6].channel = Token.HIDDEN_CHANNEL;
+    tokens[8].channel = Token.HIDDEN_CHANNEL;
+    tokens[9].channel = Token.HIDDEN_CHANNEL;
 
     var lexer = new TokenProviderTest1(tokens); // simulate input " x =34  ; \n"
     var source = new CommonTokenSource(lexer);
@@ -128,7 +128,7 @@ class TokenProviderTest1 extends TokenProvider {
   String get sourceName => "test";
   int get charPositionInLine => 0;
   int get line => 0;
-  CharSource get inputSource => null;
+  StringSource get inputSource => null;
 }
 
 class TokenProviderTest2 extends TokenProvider {
@@ -137,5 +137,5 @@ class TokenProviderTest2 extends TokenProvider {
   String get sourceName => "test";
   int get charPositionInLine => 0;
   int get line => 0;
-  CharSource get inputSource => null;
+  StringSource get inputSource => null;
 }

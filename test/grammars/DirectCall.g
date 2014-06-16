@@ -9,7 +9,7 @@ language = Dart;
 @parser::members{
 List log = new List();
 }
-a @after {log.add($ctx.toStringTree(this));} : a ID
+a @after {log.add($ctx.toString(this));} : a ID
   | ID
   ;
 ID : 'a'..'z'+ ;

@@ -206,7 +206,8 @@ int _getMatchedAlt(LexerBuilder lexerBuilder,
   Lexer lexer = lexerBuilder(source);
   var tSource = new CommonTokenSource(lexer);
   Parser parser = parserBuider(tSource);
-  List<int> types = _getTokenTypesViaAtn(lexer.input, lexer.interpreter, lexer.DEFAULT_MODE);
+  List<int> types = _getTokenTypesViaAtn(
+      lexer.inputSource, lexer.interpreter, Lexer.DEFAULT_MODE);
   Atn atn = parser.atn;
   _IntTokenSource inputSource = new _IntTokenSource(types);
   ParserAtnSimulator interp = parser.interpreter;

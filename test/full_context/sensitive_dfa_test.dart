@@ -20,7 +20,6 @@ main() {
       "reportAttemptingFullContext d=1 (e), input='34abc'",
       "reportContextSensitivity d=1 (e), input='34'"];
     expect(errorListener.errorMessages, equals(expectedMsgs));
-    expect(parser.log, equals(["Decision 1:\ns0-INT->s1\ns1-ID->:s2^=>1\n"]));
   });
 
   test("testCtxSensitiveDFA2", () {
@@ -35,6 +34,5 @@ main() {
       "reportAttemptingFullContext d=1 (e), input='34abc'",
       "reportContextSensitivity d=1 (e), input='34abc'"];
     expect(errorListener.errorMessages, equals(expectedMsgs));
-    expect(parser.log, equals(["Decision 1:\ns0-INT->s1\ns1-ID->:s2^=>1\n"]));
   });
 }

@@ -12,7 +12,7 @@ List log = new List();
 
 s
 @init {buildParseTree = true;}
-@after {log.add($r.ctx.toStringTree(this));}
+@after {log.add($r.ctx.toString(this));}
   :r=a 
   ;
 a : 'x' 'y'

@@ -56,6 +56,6 @@ String _execInterp(LexerBuilder lexerBuilder, ParserBuilder
   Parser parser = parserBuilder(tokens);
   ParserInterpreter parserInterp = new ParserInterpreter(parser.grammarFileName,
       parser.tokenNames, parser.ruleNames, parser.atn, tokens);
-  ParseTree t = parserInterp.parse(parser.ruleIndexMap[startRule]);
-  return t.toStringTree(parser);
+  RuleContext t = parserInterp.parse(parser.ruleIndexMap[startRule]);
+  return t.toString(parser);
 }

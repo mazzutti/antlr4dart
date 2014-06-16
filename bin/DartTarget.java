@@ -32,9 +32,9 @@
 package org.antlr.v4.codegen;
 
 import org.antlr.v4.Tool;
-import org.antlr.v4.codegen.model.Lexer;
-import org.antlr.v4.codegen.model.Parser;
+import org.antlr.v4.misc.Utils;
 import org.antlr.v4.tool.Grammar;
+import org.antlr.v4.tool.Rule;
 import org.antlr.v4.tool.ast.GrammarAST;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.ST.AttributeList;
@@ -96,13 +96,13 @@ public class DartTarget extends Target {
 		for (int i = 1; i < is.length() -1; i++) {
 			if  (is.charAt(i) == '\\') {
 				switch (is.charAt(i+1)) {
-					case    '"':
-					case    'n':
-					case    'r':
-					case    't':
-					case    'b':
-					case    'f':
-					case    '\\':
+					case '"':
+					case 'n':
+					case 'r':
+					case 't':
+					case 'b':
+					case 'f':
+					case '\\':
 						// Pass the escape through
 						sb.append('\\');
 						break;
@@ -120,17 +120,14 @@ public class DartTarget extends Target {
 
 				// Go past the \ character
 				i++;
-			} else {
-				if (is.charAt(i) == '"') {
-					sb.append('\\');
-				}
-			}
+			} else if (is.charAt(i) == '$' || is.charAt(i) == '"') {
+				sb.append('\\');
+			} 
 			// Add in the next character, which may have been escaped
 			sb.append(is.charAt(i));
 		}
 
 		if ( addQuotes ) sb.append('"');
-
 		return sb.toString();
 	}
 
@@ -185,7 +182,6 @@ public class DartTarget extends Target {
 						   ST outputFileST,
 						   String fileName) {
 		AltLabelCtxsReWriter.apply(outputFileST);
-		TokenNamesReWriter.apply(outputFileST);
 		getCodeGenerator().write(outputFileST, dartfyFileName(fileName));
 	}
 	
@@ -224,37 +220,6 @@ public class DartTarget extends Target {
 			if (altLabelCtxs != null) {
 				for (ST altLabelCtx: altLabelCtxs.values()) {
 					altLabelCtx.add("currentRule", st.getAttribute("currentRule"));
-				}
-			}
-		}
-	}
-	
-	private static class TokenNamesReWriter implements STVisitor {
-		static void apply(ST outputFileST) {
-			TokenNamesReWriter rewriter = new TokenNamesReWriter();
-			STWalker walker = new STWalker(rewriter);
-			walker.walk(outputFileST);
-		}
-
-		private Set<ST> visited = new HashSet<ST>();
-  
-		private TokenNamesReWriter(){}
-
-		@Override
-		public void visit(ST st) {
-			if (st == null) return;
-			if (visited.contains(st)) return;
-		    visited.add(st);
-			if ((!"/Lexer".equals(st.getName())) 
-				&& (!"/Parser".equals(st.getName()))) return;
-		    String[] tokenNames = st.getName().equals("/Lexer") ? 
-				((Lexer) st.getAttribute("lexer")).tokenNames :
-				((Parser) st.getAttribute("parser")).tokenNames;
-			for(int i = 0; i < tokenNames.length; i++) {
-				if (tokenNames[i] != null) {
-					if (tokenNames[i].contains("$")) {
-						tokenNames[i] = "r\"" + tokenNames[i].substring(1, tokenNames[i].length() - 1) + "\"";
-					}
 				}
 			}
 		}

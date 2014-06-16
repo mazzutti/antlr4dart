@@ -38,7 +38,7 @@ main() {
     var token = lexer.nextToken();
     expect(token.text, equals(xml));
     token = lexer.nextToken();
-    expect(token.type, equals(Recognizer.EOF));
+    expect(token.type, equals(Token.EOF));
   });
 
   test("testMalformedInput1XML", () {

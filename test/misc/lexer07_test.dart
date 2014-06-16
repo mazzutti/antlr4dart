@@ -25,7 +25,7 @@ main() {
     expect(token.text, equals("fababbooabb"));
 
     token = lexer.nextToken();
-    expect(token.type, equals(Recognizer.EOF));
+    expect(token.type, equals(Token.EOF));
   });
 
   test('testMalformedInput07', () {

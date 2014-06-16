@@ -10,7 +10,7 @@ language = Dart;
 List log = new List();
 }
 
-s @after {log.add($ctx.toStringTree(this));} : a ;
+s @after {log.add($ctx.toString(this));} : a ;
 a : a {true}? ID
   | ID
   ;

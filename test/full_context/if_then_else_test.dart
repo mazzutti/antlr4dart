@@ -17,8 +17,6 @@ main() {
     parser.addErrorListener(errorListener);
     parser.s();
     expect(errorListener.errorMessages.isEmpty, isTrue);
-    var expected = ["Decision 1:\ns0-'}'->:s1=>2\n"];
-    expect(parser.log, equals(expected));
   });
 
   test("testFullContextIF_THEN_ELSEParse2", () {
@@ -34,8 +32,6 @@ main() {
       "reportContextSensitivity d=1 (stat), input='else'"
     ];
     expect(errorListener.errorMessages, equals(expectedMsgs));
-    var expected = ["Decision 1:\ns0-'else'->:s1^=>1\n"];
-    expect(parser.log, equals(expected));
   });
 
   test("testFullContextIF_THEN_ELSEParse3", () {
@@ -51,8 +47,6 @@ main() {
       "reportAmbiguity d=1 (stat): ambigAlts={1, 2}, input='elsefoo}'"
     ];
     expect(errorListener.errorMessages, equals(expectedMsgs));
-    var expected = ["Decision 1:\ns0-'else'->:s1^=>1\ns0-'}'->:s2=>2\n"];
-    expect(parser.log, equals(expected));
   });
 
   test("testFullContextIF_THEN_ELSEParse4", () {
@@ -70,8 +64,6 @@ main() {
       "reportContextSensitivity d=1 (stat), input='else'"
     ];
     expect(errorListener.errorMessages, equals(expectedMsgs));
-    var expected = ["Decision 1:\ns0-'else'->:s1^=>1\n"];
-    expect(parser.log, equals(expected));
   });
 
   test("testFullContextIF_THEN_ELSEParse5", () {
@@ -90,8 +82,6 @@ main() {
       "reportAmbiguity d=1 (stat): ambigAlts={1, 2}, input='elsefoo}'"
     ];
     expect(errorListener.errorMessages, equals(expectedMsgs));
-    var expected = ["Decision 1:\ns0-'else'->:s1^=>1\ns0-'}'->:s2=>2\n"];
-    expect(parser.log, equals(expected));
   });
 
   test("testFullContextIF_THEN_ELSEParse6", () {
@@ -110,7 +100,5 @@ main() {
       "reportAmbiguity d=1 (stat): ambigAlts={1, 2}, input='elsefoo}'"
     ];
     expect(errorListener.errorMessages, equals(expectedMsgs));
-    var expected = ["Decision 1:\ns0-'else'->:s1^=>1\ns0-'}'->:s2=>2\n"];
-    expect(parser.log, equals(expected));
   });
 }

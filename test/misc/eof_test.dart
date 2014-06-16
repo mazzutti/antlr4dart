@@ -16,6 +16,6 @@ main() {
     token = lexer.nextToken();
     expect(token.type, equals(Eof.END));
     token = lexer.nextToken();
-    expect(token.type, equals(Recognizer.EOF));
+    expect(token.type, equals(Token.EOF));
   });
 }

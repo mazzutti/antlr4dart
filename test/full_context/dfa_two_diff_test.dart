@@ -23,7 +23,5 @@ main() {
       "reportContextSensitivity d=2 (e), input='34abc'"
     ];
     expect(errorListener.errorMessages, equals(expectedMsgs));
-    var expected = ["Decision 2:\ns0-INT->s1\ns1-ID->:s2^=>1\n"];
-    expect(parser.log, equals(expected));
   });
 }

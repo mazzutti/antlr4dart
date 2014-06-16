@@ -183,13 +183,13 @@ List<String> _getTokenTypes(Lexer lexer, StringSource input) {
       break;
     }
     int t = input.lookAhead(1);
-    ttype = interp.match(input, lexer.DEFAULT_MODE);
+    ttype = interp.match(input, Lexer.DEFAULT_MODE);
     if (ttype == Token.EOF) {
       tokenTypes.add("EOF");
     } else {
       tokenTypes.add(rules[ttype - 1]);
     }
-    if (t == IntSource.EOF) {
+    if (t == Token.EOF) {
       hitEOF = true;
     }
   } while (ttype != Token.EOF);

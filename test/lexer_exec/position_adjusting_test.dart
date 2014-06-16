@@ -52,7 +52,7 @@ class _PositionAdjustingLexerAtnSimulator extends LexerAtnSimulator {
                                                                                          sharedContextCache,
                                                                                          recog);
 
-  void resetAcceptPosition(CharSource input, int index, int line, int charPositionInLine) {
+  void resetAcceptPosition(StringSource input, int index, int line, int charPositionInLine) {
     input.seek(index);
     this.line = line;
     this.charPositionInLine = charPositionInLine;

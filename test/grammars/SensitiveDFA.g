@@ -6,12 +6,7 @@ language = Dart;
 
 @header {part of sensitive_dfa;}
 
-@members {
-List log = new List();
-}
-
-
-s @after {log.add(dumpDfa(false));}
+s
   : '$' a | '@' b ;
 a : e ID ;
 b : e INT ID ;

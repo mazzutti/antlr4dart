@@ -2,7 +2,7 @@ library test_error_listener;
 
 import 'package:antlr4dart/antlr4dart.dart';
 
-class TestErrorListener extends BaseErrorListener {
+class TestErrorListener extends ErrorListener {
 
   final List<String> errorMessages = new List<String>();
   final bool exactOnly;

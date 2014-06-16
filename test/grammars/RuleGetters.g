@@ -11,7 +11,7 @@ List log = new List();
 }
 
 s
-@after {log.add($r.ctx.toStringTree(this));
+@after {log.add($r.ctx.toString(this));
 ParseTreeWalker walker = new ParseTreeWalker();
 walker.walk(new LeafListener(log), $r.ctx);}
 : r=a ;

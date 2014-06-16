@@ -10,7 +10,7 @@ language = Dart;
 List log = new List();
 }
 
-s @after {log.add($ctx.toStringTree(this));} : declarator EOF ;
+s @after {log.add($ctx.toString(this));} : declarator EOF ;
 declarator
         : declarator '[' e ']'
         | declarator '[' ']'

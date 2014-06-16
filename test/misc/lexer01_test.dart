@@ -14,7 +14,7 @@ main() {
     var token = lexer.nextToken();
     expect(token.type,equals(Lexer01.ZERO));
     token = lexer.nextToken();
-    expect(token.type, equals(Recognizer.EOF));
+    expect(token.type, equals(Token.EOF));
   });
 
   test('testMalformedInput01', () {
@@ -23,7 +23,7 @@ main() {
     var errorListener = new TestErrorListener();
     lexer.addErrorListener(errorListener);
     var token = lexer.nextToken();
-    expect(token.type, equals(Recognizer.EOF));
+    expect(token.type, equals(Token.EOF));
     var expected = ["token recognition error at: '1'"];
     expect(errorListener.errorMessages, equals(expected));
   });
