@@ -1,11 +1,10 @@
-name: antlr4dart-tool
+name: antlr4dart_tool
+version: 0.3.0
 author: Tiago Mazzutti <tiagomzt@gmail.com>
-version: 0.2.0
-homepage: https://github.com/tiagomazzutti/antlr4dart.git
 description: ANTLR4 tool with Dart target suport.
+homepage: https://github.com/tiagomazzutti/antlr4dart.git
 dependencies:
   antlr4dart:
     path: antlr4dart-runtime
   fixnum: any
-  logging: '>=0.3.1+1 <0.3.2'
   unittest: any
