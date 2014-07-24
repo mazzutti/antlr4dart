@@ -1,0 +1,7 @@
+HexLiteral=1
+WS=6
+ID=5
+DOT=4
+DecimalLiteral=2
+FloatingPointLiteral=3
+'.'=4

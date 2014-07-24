@@ -6,5 +6,6 @@ homepage: https://github.com/tiagomazzutti/antlr4dart.git
 dependencies:
   antlr4dart:
     path: antlr4dart-runtime
-  fixnum: any
+  bignum: any
+  browser: any
   unittest: any
