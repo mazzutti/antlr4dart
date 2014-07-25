@@ -3,7 +3,7 @@ options {
   language = Dart;
 }
 
-@header{part of trace;}
+@header{part of trace_;}
 
 a: '<' (INT '+' b | c) '>';
 b: c ('+' c)*;

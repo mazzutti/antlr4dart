@@ -15,7 +15,7 @@ void eventMessage(dynamic msg) {
 
 document:
         ( declaration
-        | call
+        | call_
         )*
         EOF
     ;
@@ -24,8 +24,8 @@ declaration:
         'var' t=IDENTIFIER ';' {eventMessage(['decl', $t.text]);}
     ;
 
-call:
-        t=IDENTIFIER '(' ')' ';' {eventMessage(['call', $t.text]);}
+call_:
+        t=IDENTIFIER '(' ')' ';' {eventMessage(['call_', $t.text]);}
     ;
 
 IDENTIFIER: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;

@@ -1,4 +1,4 @@
-library trace;
+library trace_;
 
 import "package:unittest/unittest.dart";
 import "package:antlr4dart/antlr4dart.dart";

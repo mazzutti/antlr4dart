@@ -5,7 +5,7 @@ import 'direct_call_test.dart' as direct_call;
 import 'sem_pred_test.dart' as sem_pred;
 import 'ternary_expr_test.dart' as ternary_expr;
 import 'expressions_test.dart' as expressions;
-//import 'java_expressions_test.dart' as java_expressions;
+import 'java_expressions_test.dart' as java_expressions;
 import 'declarations_test.dart' as declarations;
 import 'return_value_and_actions1_test.dart' as return_value_and_actions1;
 import 'return_value_and_actions2_test.dart' as return_value_and_actions2;
@@ -20,8 +20,7 @@ main() {
   sem_pred.main();
   ternary_expr.main();
   expressions.main();
-  // failing on dart2js
-  // java_expressions.main();
+  java_expressions.main();
   declarations.main();
   return_value_and_actions1.main();
   return_value_and_actions2.main();

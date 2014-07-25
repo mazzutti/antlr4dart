@@ -40,7 +40,7 @@ main() {
     var errorListener = new TestErrorListener();
     parser.addErrorListener(errorListener);
     parser.s();
-    //expect(errorListener.errorMessages.isEmpty, isTrue);
+    expect(errorListener.errorMessages.isEmpty, isTrue);
     expect(parser.log, equals(["(s (e (e a) > (e b)) <EOF>)"]));
   });
 

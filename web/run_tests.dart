@@ -20,7 +20,7 @@ import 'misc/lexer11_test.dart' as lexer11;
 import 'misc/lexer12_test.dart' as lexer12;
 import 'misc/lexer_xml_test.dart' as lexer_xml;
 import 'misc/parser1_test.dart' as parser1;
-//import 'misc/parser2_test.dart' as parser2;
+import 'misc/parser2_test.dart' as parser2;
 import 'misc/parser3_test.dart' as parser3;
 import 'misc/calc_test.dart' as calc;
 import 'misc/actions_test.dart' as actions;
@@ -71,8 +71,7 @@ class TestRunner {
     lexer12.main();
     lexer_xml.main();
     parser1.main();
-    // failing on dart2js
-    // parser2.main();
+    parser2.main();
     calc.main();
     actions.main();
     parser3.main();

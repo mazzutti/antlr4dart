@@ -16,9 +16,9 @@ main() {
     var parser = new Parser2Parser(tSource);
     var expected = [
       ["decl", "foobar"],
-      ["call", "gnarz"],
+      ["call_", "gnarz"],
       ["decl", "blupp"],
-      ["call", "flupp"]
+      ["call_", "flupp"]
     ];
     parser.document();
     for(int i = 0; i < parser.events.length; i++) {
@@ -47,7 +47,7 @@ main() {
     var lexer = new Parser2Lexer(source);
     var tSource = new CommonTokenSource(lexer);
     var parser = new Parser2Parser(tSource);
-    var expectedEvts = [["call", "gnarz"]];
+    var expectedEvts = [["call_", "gnarz"]];
     var errorListener = new TestErrorListener();
     parser.addErrorListener(errorListener);
     parser.document();
