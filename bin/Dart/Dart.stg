@@ -153,7 +153,7 @@ Parser(parser, funcs, atn,  sempredFuncs, superClass) ::= <<
 >>
 
 Parser_(parser, funcs, atn, sempredFuncs, ctor, superClass) ::= <<
-<\n>class <parser.name> extends <superClass> {
+<\n>class <parser.name> extends <superClass; null="Parser"> {
 
   static const int EOF = Token.EOF;
 
@@ -726,7 +726,7 @@ part of <lexerFile.genPackage>;
 >>
 
 Lexer(lexer, atn, actionFuncs, sempredFuncs, superClass) ::= <<
-class <lexer.name> extends <superClass> {
+class <lexer.name> extends <superClass; null="Lexer"> {
 
   static const int <lexer.tokens:{k | <k> = <lexer.tokens.(k)>}; separator=", ", wrap, anchor>;
   <rest(lexer.modes):{m|<\n>static const int <m> = <i>;}; separator="\n">
